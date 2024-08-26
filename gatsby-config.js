@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    title: `Your Site Title`,
+    title: `Who's Who politique de l'Interfédé`,
     description: `Your site description.`,
     author: `@yourhandle`,
   },
