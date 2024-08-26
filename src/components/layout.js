@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
             <li><Link to="/bureau">Bureau de parti</Link></li>
             <li><Link to="/autre">Autres</Link></li>
             <li>
-              <button className="textbordeau bg-white px-3 py-1 rounded">Demande de modif</button>
+             <a href="https://tally.so/r/3qOqV8" target="_blank"></a> <button className="textbordeau bg-white px-3 py-1 rounded">Demande de modif</button>
             </li>
           </ul>
         </nav>
