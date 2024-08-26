@@ -33,8 +33,8 @@ const Parlement = ({ data }) => {
   return (
     <Layout className="">
       <section className="w-10/12 flex flex-col gap-20 m-auto">
-        <h2 className="text-xl font-bold mb-4">Membres du parti MR</h2>
-        <div className="flex flex-row gap-10">
+      <h2 className="text-xl fondMR text-white w-max p-2 rounded font-bold mb-4">Membres du MR</h2>fondengage
+      <div className="flex flex-row gap-10">
           {mrMembers.map(({ node }) => (
             <Link to={`../parlement/${node.url}`} key={node.id} className="flex flex-col">
               <figure className="m-auto">
@@ -62,7 +62,8 @@ const Parlement = ({ data }) => {
           ))}
         </div>
 
-        <h2 className="text-xl font-bold mb-4">Membres du parti Les Engagés</h2>
+        <h2 className="text-xl fondengage text-white w-max p-2 rounded font-bold mb-4">Membres du parti Les Engagés</h2>
+
         <div className="flex flex-row gap-10">
           {lesEngagesMembers.map(({ node }) => (
             <Link to={`../parlement/${node.url}`} key={node.id} className="flex flex-col">

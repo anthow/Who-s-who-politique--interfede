@@ -33,179 +33,204 @@ const Gouvernement = ({ data }) => {
   return (
     <Layout className="">
       <section className="w-10/12 flex flex-col gap-20 m-auto">
-        <h2 className="text-xl font-bold mb-4">Membres du parti MR</h2>
-        <div className="flex flex-row gap-10">
-          {mrMembers.map(({ node }) => (
-            <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
-              <figure className="m-auto">
-                <GatsbyImage
-                  image={node.photo.gatsbyImageData}
-                  alt={node.photo.alt}
-                  className=""
-                />
-              </figure>
-              <div className="flex flex-row gap-2">
-                <h3>
-                  {node.prNom} {node.nom}
-                </h3>
-                {node.parti?.logo && (
-                  <figure className="">
+        {mrMembers.length > 0 && (
+          <>
+            <h2 className="text-xl fondMR text-white w-max p-2 rounded font-bold mb-4">Membres du MR</h2>
+            
+            <div className="flex flex-row gap-10">
+              {mrMembers.map(({ node }) => (
+                <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
+                  <figure className="m-auto">
                     <GatsbyImage
-                      image={node.parti.logo.gatsbyImageData}
-                      alt={`${node.nom} logo`}
+                      image={node.photo.gatsbyImageData}
+                      alt={node.photo.alt}
                       className=""
                     />
                   </figure>
-                )}
-              </div>
-            </Link>
-          ))}
-        </div>
+                  <div className="flex flex-row gap-2">
+                    <h3>
+                      {node.prNom} {node.nom}
+                    </h3>
+                    {node.parti?.logo && (
+                      <figure className="">
+                        <GatsbyImage
+                          image={node.parti.logo.gatsbyImageData}
+                          alt={`${node.nom} logo`}
+                          className=""
+                        />
+                      </figure>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </>
+        )}
 
-        <h2 className="text-xl font-bold mb-4">Membres du parti Les Engagés</h2>
+        {lesEngagesMembers.length > 0 && (
+          <>
+        <h2 className="text-xl fondengage text-white w-max p-2 rounded font-bold mb-4">Membres des Engagés</h2>
         <div className="flex flex-row gap-10">
-          {lesEngagesMembers.map(({ node }) => (
-            <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
-              <figure className="m-auto">
-                <GatsbyImage
-                  image={node.photo.gatsbyImageData}
-                  alt={node.photo.alt}
-                  className=""
-                />
-              </figure>
-              <div className="flex flex-row gap-2">
-                <h3>
-                  {node.prNom} {node.nom}
-                </h3>
-                {node.parti?.logo && (
-                  <figure className="">
+              {lesEngagesMembers.map(({ node }) => (
+                <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
+                  <figure className="m-auto">
                     <GatsbyImage
-                      image={node.parti.logo.gatsbyImageData}
-                      alt={`${node.nom} logo`}
+                      image={node.photo.gatsbyImageData}
+                      alt={node.photo.alt}
                       className=""
                     />
                   </figure>
-                )}
-              </div>
-            </Link>
-          ))}
-        </div>
+                  <div className="flex flex-row gap-2">
+                    <h3>
+                      {node.prNom} {node.nom}
+                    </h3>
+                    {node.parti?.logo && (
+                      <figure className="">
+                        <GatsbyImage
+                          image={node.parti.logo.gatsbyImageData}
+                          alt={`${node.nom} logo`}
+                          className=""
+                        />
+                      </figure>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </>
+        )}
 
-        <h2 className="text-xl font-bold mb-4">Membres du parti PS</h2>
-        <div className="flex flex-row gap-10">
-          {psMembers.map(({ node }) => (
-            <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
-              <figure className="m-auto">
-                <GatsbyImage
-                  image={node.photo.gatsbyImageData}
-                  alt={node.photo.alt}
-                  className=""
-                />
-              </figure>
-              <div className="flex flex-row gap-2">
-                <h3>
-                  {node.prNom} {node.nom}
-                </h3>
-                {node.parti?.logo && (
-                  <figure className="">
+        {psMembers.length > 0 && (
+          <>
+            <h2 className="text-xl font-bold mb-4">Membres du parti PS</h2>
+            <div className="flex flex-row gap-10">
+              {psMembers.map(({ node }) => (
+                <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
+                  <figure className="m-auto">
                     <GatsbyImage
-                      image={node.parti.logo.gatsbyImageData}
-                      alt={`${node.nom} logo`}
+                      image={node.photo.gatsbyImageData}
+                      alt={node.photo.alt}
                       className=""
                     />
                   </figure>
-                )}
-              </div>
-            </Link>
-          ))}
-        </div>
+                  <div className="flex flex-row gap-2">
+                    <h3>
+                      {node.prNom} {node.nom}
+                    </h3>
+                    {node.parti?.logo && (
+                      <figure className="">
+                        <GatsbyImage
+                          image={node.parti.logo.gatsbyImageData}
+                          alt={`${node.nom} logo`}
+                          className=""
+                        />
+                      </figure>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </>
+        )}
 
-        <h2 className="text-xl font-bold mb-4">Membres du parti PTB</h2>
-        <div className="flex flex-row gap-10">
-          {ptbMembers.map(({ node }) => (
-            <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
-              <figure className="m-auto">
-                <GatsbyImage
-                  image={node.photo.gatsbyImageData}
-                  alt={node.photo.alt}
-                  className=""
-                />
-              </figure>
-              <div className="flex flex-row gap-2">
-                <h3>
-                  {node.prNom} {node.nom}
-                </h3>
-                {node.parti?.logo && (
-                  <figure className="">
+        {ptbMembers.length > 0 && (
+          <>
+            <h2 className="text-xl font-bold mb-4">Membres du parti PTB</h2>
+            <div className="flex flex-row gap-10">
+              {ptbMembers.map(({ node }) => (
+                <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
+                  <figure className="m-auto">
                     <GatsbyImage
-                      image={node.parti.logo.gatsbyImageData}
-                      alt={`${node.nom} logo`}
+                      image={node.photo.gatsbyImageData}
+                      alt={node.photo.alt}
                       className=""
                     />
                   </figure>
-                )}
-              </div>
-            </Link>
-          ))}
-        </div>
+                  <div className="flex flex-row gap-2">
+                    <h3>
+                      {node.prNom} {node.nom}
+                    </h3>
+                    {node.parti?.logo && (
+                      <figure className="">
+                        <GatsbyImage
+                          image={node.parti.logo.gatsbyImageData}
+                          alt={`${node.nom} logo`}
+                          className=""
+                        />
+                      </figure>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </>
+        )}
 
-        <h2 className="text-xl font-bold mb-4">Membres du parti Ecolo</h2>
-        <div className="flex flex-row gap-10">
-          {ecoloMembers.map(({ node }) => (
-            <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
-              <figure className="m-auto">
-                <GatsbyImage
-                  image={node.photo.gatsbyImageData}
-                  alt={node.photo.alt}
-                  className=""
-                />
-              </figure>
-              <div className="flex flex-row gap-2">
-                <h3>
-                  {node.prNom} {node.nom}
-                </h3>
-                {node.parti?.logo && (
-                  <figure className="">
+        {ecoloMembers.length > 0 && (
+          <>
+            <h2 className="text-xl font-bold mb-4">Membres du parti Ecolo</h2>
+            <div className="flex flex-row gap-10">
+              {ecoloMembers.map(({ node }) => (
+                <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
+                  <figure className="m-auto">
                     <GatsbyImage
-                      image={node.parti.logo.gatsbyImageData}
-                      alt={`${node.nom} logo`}
+                      image={node.photo.gatsbyImageData}
+                      alt={node.photo.alt}
                       className=""
                     />
                   </figure>
-                )}
-              </div>
-            </Link>
-          ))}
-        </div>
+                  <div className="flex flex-row gap-2">
+                    <h3>
+                      {node.prNom} {node.nom}
+                    </h3>
+                    {node.parti?.logo && (
+                      <figure className="">
+                        <GatsbyImage
+                          image={node.parti.logo.gatsbyImageData}
+                          alt={`${node.nom} logo`}
+                          className=""
+                        />
+                      </figure>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </>
+        )}
 
-        <h2 className="text-xl font-bold mb-4">Membres du parti Défi</h2>
-        <div className="flex flex-row gap-10">
-          {defiMembers.map(({ node }) => (
-            <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
-              <figure className="m-auto">
-                <GatsbyImage
-                  image={node.photo.gatsbyImageData}
-                  alt={node.photo.alt}
-                  className=""
-                />
-              </figure>
-              <div className="flex flex-row gap-2">
-                <h3>
-                  {node.prNom} {node.nom}
-                </h3>
-                {node.parti?.logo && (
-                  <figure className="">
+        {defiMembers.length > 0 && (
+          <>
+            <h2 className="text-xl font-bold mb-4">Membres du parti Défi</h2>
+            <div className="flex flex-row gap-10">
+              {defiMembers.map(({ node }) => (
+                <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
+                  <figure className="m-auto">
                     <GatsbyImage
-                      image={node.parti.logo.gatsbyImageData}
-                      alt={`${node.nom} logo`}
+                      image={node.photo.gatsbyImageData}
+                      alt={node.photo.alt}
                       className=""
                     />
                   </figure>
-                )}
-              </div>
-            </Link>
-          ))}
-        </div>
+                  <div className="flex flex-row gap-2">
+                    <h3>
+                      {node.prNom} {node.nom}
+                    </h3>
+                    {node.parti?.logo && (
+                      <figure className="">
+                        <GatsbyImage
+                          image={node.parti.logo.gatsbyImageData}
+                          alt={`${node.nom} logo`}
+                          className=""
+                        />
+                      </figure>
+                    )}
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </>
+        )}
       </section>
     </Layout>
   );
