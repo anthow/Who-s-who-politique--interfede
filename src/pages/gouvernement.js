@@ -4,7 +4,7 @@ import Layout from "../components/layout";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { Link } from "gatsby";
 
-const Parlement = ({ data }) => {
+const Gouvernement = ({ data }) => {
   // Filtrer les personnes par parti
   const mrMembers = data.allDatoCmsPersonne.edges.filter(
     ({ node }) => node.parti.nom === "MR"
@@ -65,7 +65,7 @@ const Parlement = ({ data }) => {
         <h2 className="text-xl font-bold mb-4">Membres du parti Les Engagés</h2>
         <div className="flex flex-row gap-10">
           {lesEngagesMembers.map(({ node }) => (
-            <Link to={`../parlement/${node.url}`} key={node.id} className="flex flex-col">
+            <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
               <figure className="m-auto">
                 <GatsbyImage
                   image={node.photo.gatsbyImageData}
@@ -94,7 +94,7 @@ const Parlement = ({ data }) => {
         <h2 className="text-xl font-bold mb-4">Membres du parti PS</h2>
         <div className="flex flex-row gap-10">
           {psMembers.map(({ node }) => (
-            <Link to={`../parlement/${node.url}`} key={node.id} className="flex flex-col">
+            <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
               <figure className="m-auto">
                 <GatsbyImage
                   image={node.photo.gatsbyImageData}
@@ -152,7 +152,7 @@ const Parlement = ({ data }) => {
         <h2 className="text-xl font-bold mb-4">Membres du parti Ecolo</h2>
         <div className="flex flex-row gap-10">
           {ecoloMembers.map(({ node }) => (
-            <Link to={`../parlement/${node.url}`} key={node.id} className="flex flex-col">
+            <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
               <figure className="m-auto">
                 <GatsbyImage
                   image={node.photo.gatsbyImageData}
@@ -181,7 +181,7 @@ const Parlement = ({ data }) => {
         <h2 className="text-xl font-bold mb-4">Membres du parti Défi</h2>
         <div className="flex flex-row gap-10">
           {defiMembers.map(({ node }) => (
-            <Link to={`../parlement/${node.url}`} key={node.id} className="flex flex-col">
+            <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
               <figure className="m-auto">
                 <GatsbyImage
                   image={node.photo.gatsbyImageData}
@@ -238,4 +238,4 @@ export const query = graphql`
   }
 `;
 
-export default Parlement;
+export default Gouvernement;
