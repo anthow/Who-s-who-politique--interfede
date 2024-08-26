@@ -31,20 +31,21 @@ const GouvernementPage = ({ data }) => {
 
   return (
     <Layout>
-      <div className="grid grid-cols-2 w-10/12 main m-auto mt-20">
-        <article className="flex gap-20 col">
+      <div className="grid grid-cols-2 w-10/12 main m-auto mt-20 gap-10">
+        <article className="flex gap-20">
           <section className="flex flex-col gap-5">
-            <figure className="mb-10 photo">
+            <figure className="mb-10">
               {photo && (
                 <GatsbyImage
                   image={photo.gatsbyImageData}
                   alt={`${prNom} ${nom}`}
+                  className="rounded-lg shadow-lg"
                 />
               )}
             </figure>
             <div className="flex gap-2">
               {facebook && (
-                <a href={facebook}>
+                <a href={facebook} aria-label="Facebook" className="hover:opacity-80 transition-opacity">
                   <img
                     src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,w_20/v1720860465/logo%20RS/Facebook_Logo_2023_bosach.png"
                     alt="Facebook"
@@ -52,7 +53,7 @@ const GouvernementPage = ({ data }) => {
                 </a>
               )}
               {instagram && (
-                <a href={instagram}>
+                <a href={instagram} aria-label="Instagram" className="hover:opacity-80 transition-opacity">
                   <img
                     src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,w_20/v1720860751/logo%20RS/Instagram_icon_p86ytx.png"
                     alt="Instagram"
@@ -60,7 +61,7 @@ const GouvernementPage = ({ data }) => {
                 </a>
               )}
               {linkedin && (
-                <a href={linkedin}>
+                <a href={linkedin} aria-label="LinkedIn" className="hover:opacity-80 transition-opacity">
                   <img
                     src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,w_20/v1720860791/logo%20RS/LinkedIn_logo_initials_qgiyo2.png"
                     alt="LinkedIn"
@@ -68,7 +69,7 @@ const GouvernementPage = ({ data }) => {
                 </a>
               )}
               {xTwitter && (
-                <a href={xTwitter}>
+                <a href={xTwitter} aria-label="Twitter" className="hover:opacity-80 transition-opacity">
                   <img
                     src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,w_20/v1720861003/logo%20RS/sl_z_072523_61700_01_fjkzoq.jpg"
                     alt="Twitter"
@@ -76,7 +77,7 @@ const GouvernementPage = ({ data }) => {
                 </a>
               )}
               {tikTok && (
-                <a href={tikTok}>
+                <a href={tikTok} aria-label="TikTok" className="hover:opacity-80 transition-opacity">
                   <img
                     src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,h_20/v1720867814/logo%20RS/TikTok_logo.svg_ccgee3.png"
                     alt="TikTok"
@@ -92,9 +93,9 @@ const GouvernementPage = ({ data }) => {
                     alt="Phone"
                   />
                 </figure>
-                <div className="flex flex-col gap-2">
-                  {numRoDeTLPhone && <span>{numRoDeTLPhone}</span>}
-                  {numRoDeTLPhone2 && <span>{numRoDeTLPhone2}</span>}
+                <div className="flex flex-col gap-1">
+                  {numRoDeTLPhone && <span className="text-gray-700">{numRoDeTLPhone}</span>}
+                  {numRoDeTLPhone2 && <span className="text-gray-700">{numRoDeTLPhone2}</span>}
                 </div>
               </div>
             )}
@@ -106,22 +107,22 @@ const GouvernementPage = ({ data }) => {
                     alt="Email"
                   />
                 </figure>
-                <p>{mail}</p>
+                <p className="text-gray-700">{mail}</p>
               </div>
             )}
             {adressePostale && (
-              <p>
+              <p className="text-gray-700">
                 Adresse pro:
                 <br /> {adressePostale}
               </p>
             )}
             {remarqueCoordonnEs && (
-              <p>Remarque Coordonnées: {remarqueCoordonnEs}</p>
+              <p className="text-gray-500 italic">Remarque Coordonnées: {remarqueCoordonnEs}</p>
             )}
           </section>
           <article className="flex flex-col gap-5">
             <section className="flex items-center gap-2">
-              <h1 className="page">
+              <h1 className="text-3xl font-bold text-gray-900">
                 {prNom} {nom}
               </h1>
               <figure>
@@ -129,23 +130,26 @@ const GouvernementPage = ({ data }) => {
                   <GatsbyImage
                     image={parti.logo.gatsbyImageData}
                     alt={`${parti.nom} logo`}
+                    className="w-10 h-10"
                   />
                 )}
               </figure>
             </section>
-            <h2 className="page">{statut && statut.nom}</h2>
-          
+            <h2 className="text-xl font-semibold text-gray-800">{statut && statut.nom}</h2>
+
             {attach && attach.length > 0 && (
-              <section className="flex gap-2">
+              <section className="flex flex-wrap gap-2">
                 {attach.map((attache, index) => (
-                  <p className="head text-white p-2" key={index}>
+                  <p className="head text-white p-2 rounded" key={index}>
                     {attache.prNom} {attache.nom}
                   </p>
                 ))}
-                <p className="headbleu text-white p-2">{fonctionAttach}</p>
+                <p className="headbleu text-white p-2 rounded">{fonctionAttach}</p>
               </section>
             )}
-            <p>{remarquesCommentaires}</p>
+            {remarquesCommentaires && (
+              <p className="text-gray-700">{remarquesCommentaires}</p>
+            )}
           </article>
         </article>
       </div>

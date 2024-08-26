@@ -13,7 +13,8 @@ const GouvernementPage = ({ data }) => {
 
   return (
     <Layout>
-      <div className="grid grid-cols-2 w-10/12 main m-auto mt-20">
+         <div className="w-10/12 m-auto">
+      <div className="grid grid-cols-2  main m-auto mt-20">
         <article className="flex gap-20 col">
           <section className="flex flex-col gap-5">
             <figure className="mb-10 photo">
@@ -131,6 +132,7 @@ const GouvernementPage = ({ data }) => {
           ))}
         </ul>
       </section>
+      </div>
     </Layout>
   );
 };
