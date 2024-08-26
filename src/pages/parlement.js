@@ -33,7 +33,7 @@ const Parlement = ({ data }) => {
   return (
     <Layout className="">
       <section className="w-10/12 flex flex-col gap-20 m-auto">
-      <h2 className="text-xl fondMR text-white w-max p-2 rounded font-bold mb-4">Membres du MR</h2>fondengage
+      <h2 className="text-xl fondMR text-white w-max p-2 rounded font-bold mb-4">Membres du MR</h2>
       <div className="flex flex-row gap-10">
           {mrMembers.map(({ node }) => (
             <Link to={`../parlement/${node.url}`} key={node.id} className="flex flex-col">
@@ -62,7 +62,7 @@ const Parlement = ({ data }) => {
           ))}
         </div>
 
-        <h2 className="text-xl fondengage text-white w-max p-2 rounded font-bold mb-4">Membres du parti Les Engagés</h2>
+        <h2 className="text-xl fondengage text-white w-max p-2 rounded font-bold mb-4">Membres des Engagés</h2>
 
         <div className="flex flex-row gap-10">
           {lesEngagesMembers.map(({ node }) => (
@@ -92,7 +92,7 @@ const Parlement = ({ data }) => {
           ))}
         </div>
 
-        <h2 className="text-xl font-bold mb-4">Membres du parti PS</h2>
+        <h2 className="text-xl font-bold mb-4">Membres du PS</h2>
         <div className="flex flex-row gap-10">
           {psMembers.map(({ node }) => (
             <Link to={`../parlement/${node.url}`} key={node.id} className="flex flex-col">
@@ -121,7 +121,7 @@ const Parlement = ({ data }) => {
           ))}
         </div>
 
-        <h2 className="text-xl font-bold mb-4">Membres du parti PTB</h2>
+        <h2 className="text-xl font-bold mb-4">Membres du PTB</h2>
         <div className="flex flex-row gap-10">
           {ptbMembers.map(({ node }) => (
             <Link to={`../parlement/${node.url}`} key={node.id} className="flex flex-col">
@@ -150,7 +150,7 @@ const Parlement = ({ data }) => {
           ))}
         </div>
 
-        <h2 className="text-xl font-bold mb-4">Membres du parti Ecolo</h2>
+        <h2 className="text-xl font-bold mb-4">Membres d' Ecolo</h2>
         <div className="flex flex-row gap-10">
           {ecoloMembers.map(({ node }) => (
             <Link to={`../parlement/${node.url}`} key={node.id} className="flex flex-col">
@@ -179,7 +179,7 @@ const Parlement = ({ data }) => {
           ))}
         </div>
 
-        <h2 className="text-xl font-bold mb-4">Membres du parti Défi</h2>
+        <h2 className="text-xl font-bold mb-4">Membres de Défi</h2>
         <div className="flex flex-row gap-10">
           {defiMembers.map(({ node }) => (
             <Link to={`../parlement/${node.url}`} key={node.id} className="flex flex-col">
