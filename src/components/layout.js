@@ -35,7 +35,7 @@ const Layout = ({ children }) => {
       </header>
       <main className="container mx-auto p-4">{children}</main>
       <footer className="w-full p-4 bg-gray-800 text-white text-center">
-        <p>&copy; {new Date().getFullYear()} Who's Who politique. All rights reserved.</p>
+        <p>&copy; {new Date().getFullYear()} Interfédé des CISP</p>
       </footer>
     </>
   );
