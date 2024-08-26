@@ -5,7 +5,6 @@ import { GatsbyImage } from "gatsby-plugin-image";
 import { Link } from "gatsby";
 
 const Gouvernement = ({ data }) => {
-  // Filtrer les personnes par parti
   const mrMembers = data.allDatoCmsPersonne.edges.filter(
     ({ node }) => node.parti.nom === "MR"
   );
@@ -30,207 +29,48 @@ const Gouvernement = ({ data }) => {
     ({ node }) => node.parti.nom === "PTB"
   );
 
+  const renderMembers = (members, partyClass, partyName) => (
+    <>
+      <h2 className={`text-xl ${partyClass} text-white w-max p-2 rounded font-bold mb-4`}>
+        {partyName}
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {members.map(({ node }) => (
+          <Link
+            to={`../gouvernement/${node.url}`}
+            key={node.id}
+            className="flex flex-col bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition-shadow duration-300"
+          >
+            <figure className="m-auto">
+              <GatsbyImage
+                image={node.photo.gatsbyImageData}
+                alt={node.photo.alt}
+                className="rounded-full mb-4"
+              />
+            </figure>
+            <div className="flex flex-col items-center text-center">
+              <h3 className="text-lg font-semibold mb-2">
+                {node.prNom} {node.nom}
+              </h3>
+              <h3 className="text-sm ">
+                 {node.ministRe}
+              </h3>
+            </div>
+          </Link>
+        ))}
+      </div>
+    </>
+  );
+
   return (
     <Layout className="">
-      <section className="w-10/12 flex flex-col gap-20 m-auto">
-        {mrMembers.length > 0 && (
-          <>
-            <h2 className="text-xl fondMR text-white w-max p-2 rounded font-bold mb-4">Membres du MR</h2>
-            
-            <div className="flex flex-row gap-10">
-              {mrMembers.map(({ node }) => (
-                <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
-                  <figure className="m-auto">
-                    <GatsbyImage
-                      image={node.photo.gatsbyImageData}
-                      alt={node.photo.alt}
-                      className=""
-                    />
-                  </figure>
-                  <div className="flex flex-row gap-2">
-                    <h3>
-                      {node.prNom} {node.nom}
-                    </h3>
-                    {node.parti?.logo && (
-                      <figure className="">
-                        <GatsbyImage
-                          image={node.parti.logo.gatsbyImageData}
-                          alt={`${node.nom} logo`}
-                          className=""
-                        />
-                      </figure>
-                    )}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </>
-        )}
-
-        {lesEngagesMembers.length > 0 && (
-          <>
-        <h2 className="text-xl fondengage text-white w-max p-2 rounded font-bold mb-4">Membres des Engagés</h2>
-        <div className="flex flex-row gap-10">
-              {lesEngagesMembers.map(({ node }) => (
-                <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
-                  <figure className="m-auto">
-                    <GatsbyImage
-                      image={node.photo.gatsbyImageData}
-                      alt={node.photo.alt}
-                      className=""
-                    />
-                  </figure>
-                  <div className="flex flex-row gap-2">
-                    <h3>
-                      {node.prNom} {node.nom}
-                    </h3>
-                    {node.parti?.logo && (
-                      <figure className="">
-                        <GatsbyImage
-                          image={node.parti.logo.gatsbyImageData}
-                          alt={`${node.nom} logo`}
-                          className=""
-                        />
-                      </figure>
-                    )}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </>
-        )}
-
-        {psMembers.length > 0 && (
-          <>
-            <h2 className="text-xl font-bold mb-4">Membres du parti PS</h2>
-            <div className="flex flex-row gap-10">
-              {psMembers.map(({ node }) => (
-                <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
-                  <figure className="m-auto">
-                    <GatsbyImage
-                      image={node.photo.gatsbyImageData}
-                      alt={node.photo.alt}
-                      className=""
-                    />
-                  </figure>
-                  <div className="flex flex-row gap-2">
-                    <h3>
-                      {node.prNom} {node.nom}
-                    </h3>
-                    {node.parti?.logo && (
-                      <figure className="">
-                        <GatsbyImage
-                          image={node.parti.logo.gatsbyImageData}
-                          alt={`${node.nom} logo`}
-                          className=""
-                        />
-                      </figure>
-                    )}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </>
-        )}
-
-        {ptbMembers.length > 0 && (
-          <>
-            <h2 className="text-xl font-bold mb-4">Membres du parti PTB</h2>
-            <div className="flex flex-row gap-10">
-              {ptbMembers.map(({ node }) => (
-                <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
-                  <figure className="m-auto">
-                    <GatsbyImage
-                      image={node.photo.gatsbyImageData}
-                      alt={node.photo.alt}
-                      className=""
-                    />
-                  </figure>
-                  <div className="flex flex-row gap-2">
-                    <h3>
-                      {node.prNom} {node.nom}
-                    </h3>
-                    {node.parti?.logo && (
-                      <figure className="">
-                        <GatsbyImage
-                          image={node.parti.logo.gatsbyImageData}
-                          alt={`${node.nom} logo`}
-                          className=""
-                        />
-                      </figure>
-                    )}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </>
-        )}
-
-        {ecoloMembers.length > 0 && (
-          <>
-            <h2 className="text-xl font-bold mb-4">Membres du parti Ecolo</h2>
-            <div className="flex flex-row gap-10">
-              {ecoloMembers.map(({ node }) => (
-                <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
-                  <figure className="m-auto">
-                    <GatsbyImage
-                      image={node.photo.gatsbyImageData}
-                      alt={node.photo.alt}
-                      className=""
-                    />
-                  </figure>
-                  <div className="flex flex-row gap-2">
-                    <h3>
-                      {node.prNom} {node.nom}
-                    </h3>
-                    {node.parti?.logo && (
-                      <figure className="">
-                        <GatsbyImage
-                          image={node.parti.logo.gatsbyImageData}
-                          alt={`${node.nom} logo`}
-                          className=""
-                        />
-                      </figure>
-                    )}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </>
-        )}
-
-        {defiMembers.length > 0 && (
-          <>
-            <h2 className="text-xl font-bold mb-4">Membres du parti Défi</h2>
-            <div className="flex flex-row gap-10">
-              {defiMembers.map(({ node }) => (
-                <Link to={`../gouvernement/${node.url}`} key={node.id} className="flex flex-col">
-                  <figure className="m-auto">
-                    <GatsbyImage
-                      image={node.photo.gatsbyImageData}
-                      alt={node.photo.alt}
-                      className=""
-                    />
-                  </figure>
-                  <div className="flex flex-row gap-2">
-                    <h3>
-                      {node.prNom} {node.nom}
-                    </h3>
-                    {node.parti?.logo && (
-                      <figure className="">
-                        <GatsbyImage
-                          image={node.parti.logo.gatsbyImageData}
-                          alt={`${node.nom} logo`}
-                          className=""
-                        />
-                      </figure>
-                    )}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </>
-        )}
+      <section className="w-10/12 flex flex-col gap-20 m-auto py-10">
+        {mrMembers.length > 0 && renderMembers(mrMembers, "fondMR", "MR")}
+        {lesEngagesMembers.length > 0 && renderMembers(lesEngagesMembers, "fondengage", "Engagés")}
+        {psMembers.length > 0 && renderMembers(psMembers, "fondPS", "PS")}
+        {ecoloMembers.length > 0 && renderMembers(ecoloMembers, "fondEcolo", "Ecolo")}
+        {defiMembers.length > 0 && renderMembers(defiMembers, "fondDefi", "Défi")}
+        {ptbMembers.length > 0 && renderMembers(ptbMembers, "fondPTB", "PTB")}
       </section>
     </Layout>
   );
@@ -249,6 +89,7 @@ export const query = graphql`
           }
           url
           nom
+          ministRe
           id
           prNom
           parti {

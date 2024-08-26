@@ -1,8 +1,7 @@
 import * as React from "react";
-import { graphql, Link } from "gatsby";
+import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import { GatsbyImage } from "gatsby-plugin-image";
-
 
 const GouvernementPage = ({ data }) => {
   if (!data || !data.datoCmsPersonne) {
@@ -25,7 +24,6 @@ const GouvernementPage = ({ data }) => {
     nom,
     parti,
     statut,
-    ministRe,
     attach,
     fonctionAttach,
     remarquesCommentaires,
@@ -38,7 +36,10 @@ const GouvernementPage = ({ data }) => {
           <section className="flex flex-col gap-5">
             <figure className="mb-10 photo">
               {photo && (
-                <GatsbyImage image={photo.gatsbyImageData} alt={`${prNom} ${nom}`} />
+                <GatsbyImage
+                  image={photo.gatsbyImageData}
+                  alt={`${prNom} ${nom}`}
+                />
               )}
             </figure>
             <div className="flex gap-2">
@@ -114,7 +115,9 @@ const GouvernementPage = ({ data }) => {
                 <br /> {adressePostale}
               </p>
             )}
-            {remarqueCoordonnEs && <p>Remarque Coordonnées: {remarqueCoordonnEs}</p>}
+            {remarqueCoordonnEs && (
+              <p>Remarque Coordonnées: {remarqueCoordonnEs}</p>
+            )}
           </section>
           <article className="flex flex-col gap-5">
             <section className="flex items-center gap-2">
@@ -131,11 +134,14 @@ const GouvernementPage = ({ data }) => {
               </figure>
             </section>
             <h2 className="page">{statut && statut.nom}</h2>
-            {attach && (
-              <section className="flex flex-row gap-2">
-                <p className="head text-white p-2">
-                  {data.datoCmsPersonne.attach.prNom} {attach.nom}
-                </p>
+          
+            {attach && attach.length > 0 && (
+              <section className="flex gap-2">
+                {attach.map((attache, index) => (
+                  <p className="head text-white p-2" key={index}>
+                    {attache.prNom} {attache.nom}
+                  </p>
+                ))}
                 <p className="headbleu text-white p-2">{fonctionAttach}</p>
               </section>
             )}
@@ -146,8 +152,6 @@ const GouvernementPage = ({ data }) => {
     </Layout>
   );
 };
-
-
 
 export const query = graphql`
   query PersonnePageQuery($id: String!) {
@@ -183,25 +187,7 @@ export const query = graphql`
       }
       remarquesCommentaires
     }
-    allDatoCmsPersonne(filter: { attach: { elemMatch: { id: { eq: $id } } } }) {
-      nodes {
-        id
-        url
-        nom
-        prNom
-        fonctionAttach
-        attach {
-          prNom
-          nom
-        }
-        photo {
-          alt
-          gatsbyImageData(height: 150)
-        }
-      }
-    }
   }
 `;
-
 
 export default GouvernementPage;
