@@ -49,3 +49,73 @@ h3{font-size: large;}
 .fondDefi{
     background-color: #dd007a ;
 }
+
+/* Styles spécifiques à la page "Revue de presse" */
+.revue-de-presse-page {
+ 
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+/* Titre de la page */
+.revue-de-presse-page .title {
+    font-size: 2.5em;
+    text-align: center;
+    color: #333;
+    margin-bottom: 30px;
+    padding-bottom: 10px;
+}
+
+/* Conteneur de chaque article */
+.revue-de-presse-page .article {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+}
+
+/* Style du contenu de l'article */
+.revue-de-presse-page .article-content h2 {
+    font-size: 1.8em;
+    color: #333;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 5px;
+}
+
+.revue-de-presse-page .article-content h3 {
+    font-size: 1.5em;
+    color: #555;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.revue-de-presse-page .article-content p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.revue-de-presse-page .article-content ul {
+    list-style-type: disc;
+    margin-left: 20px;
+    color: #444;
+}
+
+.revue-de-presse-page .article-content ul li {
+    margin-bottom: 2px;
+}
+
+.revue-de-presse-page .article-content a {
+    color: #007BFF;
+    text-decoration: none;
+    border-bottom: 1px dotted #007BFF;
+    transition: color 0.3s ease-in-out, border-bottom 0.3s ease-in-out;
+}
+
+.revue-de-presse-page .article-content a:hover {
+    color: #0056b3;
+    border-bottom: 1px solid #0056b3;
+}
