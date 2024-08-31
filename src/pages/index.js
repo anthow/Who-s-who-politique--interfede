@@ -8,14 +8,14 @@ const Section = ({ link, imageSrc, title }) => (
       <Link to={link}>
         <img src={imageSrc} alt={title} className="w-full h-auto" />
         <div className="p-2 text-center">
-          <h2>{title}</h2>
+        <h2 className="rubrique">{title}</h2>
         </div>
       </Link>
     ) : (
       <>
         <img src={imageSrc} alt={title} className="w-full h-auto" />
         <div className="p-2 text-center">
-          <h2>{title}</h2>
+          <h2 className="rubrique">{title}</h2>
         </div>
       </>
     )}

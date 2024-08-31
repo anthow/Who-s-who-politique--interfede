@@ -21,5 +21,16 @@ module.exports = {
     },
 
     // Add other plugins here
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `Roboto\:400,700`,
+          `Montserrat\:400,700`,
+        ],
+        display: 'swap',
+      },
+    },
+     // Add other plugins here
   ],
 }

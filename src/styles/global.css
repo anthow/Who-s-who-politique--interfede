@@ -13,9 +13,20 @@
 background-color: #36b7c1;
 }
 
+/* Appliquer Montserrat aux titres */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+  /* Appliquer Roboto au texte normal */
+  body, p, span, a, li, div {
+    font-family: 'Roboto', sans-serif;
+  }
+  
+
 h1{font-size: xx-large;}
 h2{font-size: x-large;}
-h3{font-size: large;}
+h3,h2.rubrique {font-size: large;}
 .margin-top{
     margin-top: 10px;
 }
@@ -119,3 +130,4 @@ h3{font-size: large;}
     color: #0056b3;
     border-bottom: 1px solid #0056b3;
 }
+
