@@ -26,7 +26,7 @@ const GouvernementPage = ({ data }) => {
                   />
                 )}
               </figure>
-              <div className="flex gap-2 flex-wrap">
+              <div className="flex gap-4 flex-wrap">
                 {personne.facebook && (
                   <a href={personne.facebook} aria-label="Facebook" className="hover:opacity-80 transition-opacity">
                     <img
@@ -83,7 +83,7 @@ const GouvernementPage = ({ data }) => {
                 </div>
               )}
               {personne.mail && (
-                <div className="flex gap-2 items-center">
+                <div className="flex flex-col gap-2 ">
                   <figure>
                     <img
                       src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,h_20/v1722242440/email_q68wma.png"

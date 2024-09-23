@@ -53,7 +53,7 @@ const Gouvernement = ({ data }) => {
                 {node.prNom} {node.nom}
               </h3>
               <h3 className="text-sm ">
-                 {node.ministRe}
+                {node.ministRe}
               </h3>
             </div>
           </Link>
@@ -79,6 +79,8 @@ const Gouvernement = ({ data }) => {
 export const query = graphql`
   {
     allDatoCmsPersonne(
+            sort: {nom: ASC}
+
       filter: { statut: { elemMatch: { nom: { eq: "Ministre du gouverment wallon" } } } }
     ) {
       edges {

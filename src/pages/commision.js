@@ -78,7 +78,7 @@ export const query = graphql`
   {
     allDatoCmsPersonne(
             sort: {nom: ASC}
-      filter: { statut: { elemMatch: { nom: { eq: "Député wallon" } } } }
+    filter: {commision: {commision: {eq: "COMMISSION DE L'ÉCONOMIE, DE L'EMPLOI ET DE LA FORMATION"}}, statut: {elemMatch: {nom: {eq: "Député wallon"}}}}
     ) {
       edges {
         node {

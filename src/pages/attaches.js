@@ -86,6 +86,7 @@ const Parlement = ({ data }) => {
 export const query = graphql`
   {
     allDatoCmsPersonne(
+        sort: {nom: ASC}
       filter: { statut: { elemMatch: { nom: { eq: "attaché parlementaire" } } } }
     ) {
       edges {
