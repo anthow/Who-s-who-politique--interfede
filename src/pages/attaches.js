@@ -5,13 +5,14 @@ import { GatsbyImage } from "gatsby-plugin-image";
 import { Link } from "gatsby";
 
 const Parlement = ({ data }) => {
+  // Fonction utilitaire pour filtrer les membres par parti
   const filterByParty = (partyName) =>
     data.allDatoCmsPersonne.edges.filter(
       ({ node }) => node.parti && node.parti.nom === partyName
     );
 
-  // Fonction pour prioriser "JEHOLET" et ajouter un saut de ligne uniquement pour le MR
-  const prioritizeJeholetMR = (members) => {
+  // Fonction pour prioriser les membres avec "JEHOLET" dans attach.nom
+  const prioritizeJeholet = (members) => {
     return members.sort(({ node: a }, { node: b }) => {
       const aHasJeholet = a.attach.some((attaché) => attaché.nom === "JEHOLET");
       const bHasJeholet = b.attach.some((attaché) => attaché.nom === "JEHOLET");
@@ -22,15 +23,17 @@ const Parlement = ({ data }) => {
     });
   };
 
+  // Filtrage et tri par parti
   const partyMembers = {
-    MR: prioritizeJeholetMR(filterByParty("MR")),
-    LesEngages: filterByParty("Les engagés"),
-    PS: filterByParty("PS"),
-    Ecolo: filterByParty("Ecolo"),
-    Defi: filterByParty("Défi"),
-    PTB: filterByParty("PTB"),
+    MR: prioritizeJeholet(filterByParty("MR")),
+    LesEngages: prioritizeJeholet(filterByParty("Les engagés")),
+    PS: prioritizeJeholet(filterByParty("PS")),
+    Ecolo: prioritizeJeholet(filterByParty("Ecolo")),
+    Defi: prioritizeJeholet(filterByParty("Défi")),
+    PTB: prioritizeJeholet(filterByParty("PTB")),
   };
 
+  // Fonction pour afficher les membres d'un parti
   const renderMembers = (members, partyClass, partyName) => {
     if (!members || members.length === 0) return null;
 
@@ -40,59 +43,40 @@ const Parlement = ({ data }) => {
           {partyName}
         </h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
-          {members.map(({ node }, index) => {
-            const hasJeholet =
-              partyName === "MR" &&
-              node.attach.some((attaché) => attaché.nom === "JEHOLET");
-            const nextMemberHasJeholet =
-              partyName === "MR" &&
-              index < members.length - 1 &&
-              members[index + 1].node.attach.some(
-                (attaché) => attaché.nom === "JEHOLET"
-              );
-
-            return (
-              <React.Fragment key={node.id}>
-                <Link
-                  to={`../attaches/${node.url}`}
-                  className="flex flex-col bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition-shadow duration-300"
-                >
-                  <figure className="m-auto">
-                    {node.photo && node.photo.gatsbyImageData ? (
-                      <GatsbyImage
-                        image={node.photo.gatsbyImageData}
-                        alt={node.photo.alt || "Photo"}
-                        className="rounded-full mb-4"
-                      />
-                    ) : (
-                      <div className="w-24 h-24 rounded-full bg-gray-200 mb-4" />
-                    )}
-                  </figure>
-                  <div className="flex flex-col items-center text-center">
-                    <h3 className="text-lg font-semibold">
-                      {node.prNom || "Prénom"} {node.nom || "Nom"}
-                    </h3>
-                    {node.attach && node.attach.length > 0 ? (
-                      node.attach.map((attaché, attachIndex) => (
-                        <h3 key={attachIndex}>
-                          {attaché.prNom || "Prénom"} {attaché.nom || "Nom"}
-                        </h3>
-                      ))
-                    ) : (
-                      <h3 className="text-gray-500">Pas de données d'attaché</h3>
-                    )}
-                    {node.fonctionAttach && <h4>{node.fonctionAttach}</h4>}
-                  </div>
-                </Link>
-                {/* Ajouter un séparateur après le dernier membre avec "JEHOLET" */}
-                {hasJeholet && !nextMemberHasJeholet && (
-                  <div className="col-span-full my-4">
-                    <hr className="border-t-2 border-gray-300" />
-                  </div>
+          {members.map(({ node }) => (
+            <Link
+              to={`../attaches/${node.url}`}
+              key={node.id}
+              className="flex flex-col bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition-shadow duration-300"
+            >
+              <figure className="m-auto">
+                {node.photo && node.photo.gatsbyImageData ? (
+                  <GatsbyImage
+                    image={node.photo.gatsbyImageData}
+                    alt={node.photo.alt || "Photo"}
+                    className="rounded-full mb-4"
+                  />
+                ) : (
+                  <div className="w-24 h-24 rounded-full bg-gray-200 mb-4" />
                 )}
-              </React.Fragment>
-            );
-          })}
+              </figure>
+              <div className="flex flex-col items-center text-center">
+                <h3 className="text-lg font-semibold">
+                  {node.prNom || "Prénom"} {node.nom || "Nom"}
+                </h3>
+                {node.attach && node.attach.length > 0 ? (
+                  node.attach.map((attaché, index) => (
+                    <h3 key={index}>
+                      {attaché.prNom || "Prénom"} {attaché.nom || "Nom"}
+                    </h3>
+                  ))
+                ) : (
+                  <h3 className="text-gray-500">Pas de données d'attaché</h3>
+                )}
+                {node.fonctionAttach && <h4>{node.fonctionAttach}</h4>}
+              </div>
+            </Link>
+          ))}
         </div>
       </>
     );

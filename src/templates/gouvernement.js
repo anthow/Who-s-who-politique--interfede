@@ -13,22 +13,23 @@ const GouvernementPage = ({ data }) => {
 
   return (
     <Layout>
-      <div className="w-10/12 m-auto">
-        <div className="grid grid-cols-2 w-10/12 main m-auto mt-20 gap-10">
-          <article className="flex gap-20">
-            <section className="flex flex-col gap-5">
-              <figure className="mb-10">
+      <div style={{ width: "80%", margin: "0 auto" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", marginTop: "40px" }}>
+          <article style={{ display: "flex", gap: "40px" }}>
+            {/* Section gauche */}
+            <section style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              <figure style={{ marginBottom: "20px" }}>
                 {personne.photo && (
                   <GatsbyImage
                     image={personne.photo.gatsbyImageData}
                     alt={personne.photo.alt || ""}
-                    className="rounded-lg shadow-lg"
+                    style={{ width: "100%", height: "auto" }}
                   />
                 )}
               </figure>
-              <div className="flex gap-4 flex-wrap">
+              <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "20px" }}>
                 {personne.facebook && (
-                  <a href={personne.facebook} aria-label="Facebook" className="hover:opacity-80 transition-opacity">
+                  <a href={personne.facebook}>
                     <img
                       src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,w_20/v1720860465/logo%20RS/Facebook_Logo_2023_bosach.png"
                       alt="Facebook"
@@ -36,7 +37,7 @@ const GouvernementPage = ({ data }) => {
                   </a>
                 )}
                 {personne.instagram && (
-                  <a href={personne.instagram} aria-label="Instagram" className="hover:opacity-80 transition-opacity">
+                  <a href={personne.instagram}>
                     <img
                       src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,w_20/v1720860751/logo%20RS/Instagram_icon_p86ytx.png"
                       alt="Instagram"
@@ -44,7 +45,7 @@ const GouvernementPage = ({ data }) => {
                   </a>
                 )}
                 {personne.linkedin && (
-                  <a href={personne.linkedin} aria-label="LinkedIn" className="hover:opacity-80 transition-opacity">
+                  <a href={personne.linkedin}>
                     <img
                       src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,w_20/v1720860791/logo%20RS/LinkedIn_logo_initials_qgiyo2.png"
                       alt="LinkedIn"
@@ -52,7 +53,7 @@ const GouvernementPage = ({ data }) => {
                   </a>
                 )}
                 {personne.xTwitter && (
-                  <a href={personne.xTwitter} aria-label="Twitter" className="hover:opacity-80 transition-opacity">
+                  <a href={personne.xTwitter}>
                     <img
                       src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,w_20/v1720861003/logo%20RS/sl_z_072523_61700_01_fjkzoq.jpg"
                       alt="Twitter"
@@ -60,7 +61,7 @@ const GouvernementPage = ({ data }) => {
                   </a>
                 )}
                 {personne.tikTok && (
-                  <a href={personne.tikTok} aria-label="TikTok" className="hover:opacity-80 transition-opacity">
+                  <a href={personne.tikTok}>
                     <img
                       src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,h_20/v1720867814/logo%20RS/TikTok_logo.svg_ccgee3.png"
                       alt="TikTok"
@@ -69,87 +70,97 @@ const GouvernementPage = ({ data }) => {
                 )}
               </div>
               {(personne.numRoDeTLPhone || personne.numRoDeTLPhone2) && (
-                <div className="flex gap-2 items-center">
+                <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                   <figure>
                     <img
                       src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,h_20/v1721915558/samples/tel-removebg-preview_aq5nhh.png"
                       alt="Phone"
                     />
                   </figure>
-                  <div className="flex flex-col gap-1">
-                    {personne.numRoDeTLPhone && <span className="text-gray-700">{personne.numRoDeTLPhone}</span>}
-                    {personne.numRoDeTLPhone2 && <span className="text-gray-700">{personne.numRoDeTLPhone2}</span>}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+                    {personne.numRoDeTLPhone && <span>{personne.numRoDeTLPhone}</span>}
+                    {personne.numRoDeTLPhone2 && <span>{personne.numRoDeTLPhone2}</span>}
                   </div>
                 </div>
               )}
               {personne.mail && (
-                <div className="flex flex-col gap-2 ">
+                <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "10px" }}>
                   <figure>
                     <img
                       src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,h_20/v1722242440/email_q68wma.png"
                       alt="Email"
                     />
                   </figure>
-                  <p className="text-gray-700">{personne.mail}</p>
+                  <p>{personne.mail}</p>
                 </div>
               )}
               {personne.adressePostale && (
-                <p className="text-base font-medium text-gray-700">
+                <p style={{ marginTop: "10px" }}>
                   Adresse pro:
                   <br /> {personne.adressePostale}
                 </p>
               )}
               {personne.remarqueCoordonnEs && (
-                <p className="text-base font-medium text-gray-500 italic">Remarque Coordonnées: {personne.remarqueCoordonnEs}</p>
+                <p style={{ fontStyle: "italic", color: "gray", marginTop: "10px" }}>
+                  Remarque Coordonnées: {personne.remarqueCoordonnEs}
+                </p>
               )}
             </section>
-            <article className="flex flex-col gap-5">
-              <section className="flex items-center gap-2">
-                <h1 className="text-4xl font-bold text-gray-900">{personne.prNom} {personne.nom}</h1>
+
+            {/* Section droite */}
+            <article style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+              <section style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <h1   style={{
+    fontSize: "32px",
+    width: "100%",
+    fontWeight: "bold",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis",
+  }}>
+                  {personne.prNom} {personne.nom}
+                </h1>
                 <figure>
-                  {personne.parti && personne.parti.logo && (
+                  {personne.parti?.logo && (
                     <GatsbyImage
                       image={personne.parti.logo.gatsbyImageData}
                       alt={personne.parti.logo.alt || ""}
-                      className="w-10 h-10"
+                      style={{ width: "60px", height: "auto" }}
                     />
                   )}
                 </figure>
               </section>
-              <h2 className="text-3xl font-semibold text-gray-800">{personne.statut && personne.statut.nom}</h2>
-              <h3 className="text-2xl font-bold headbleu p-2 text-white">{personne.ministRe}</h3>
+              <h2 style={{ fontSize: "16px", fontWeight: "600" }}>{personne.statut?.nom}</h2>
+              <h3 style={{ fontSize: "16px", fontWeight: "700", padding: "10px", backgroundColor: "#1e90ff", color: "white", borderRadius: "5px" }}>
+                {personne.ministRe}
+              </h3>
 
-              {attach && (
-                <section className="flex flex-row gap-2">
-                </section>
-              )}
-              <p className="text-lg font-medium text-gray-700">Nombre de Mandats: {personne.nombreDeMandats}</p>
-              <p className="text-lg font-medium text-gray-700">Remarques: {personne.remarquesCommentaires}</p>
+         
+              <h3 style={{ fontSize: "18px", marginTop: "40px", fontWeight: "500" }}>
+              Remarques: {personne.remarquesCommentaires}
+</h3>
             </article>
           </article>
         </div>
-        {attach && (
-          <div className="flex items-center space-x-2 bg-blue-500 text-white p-2 rounded-lg mt-10">
-            <p className="font-medium">
-              {attach.prNom} {attach.nom}
-            </p>
-            <p className="italic">{data.allDatoCmsPersonne.nodes[0].fonctionAttach}</p>
-          </div>
-        )}
-        <section className="mt-10 flex flex-col gap-5">
-          <h2 className="text-xl font-bold mb-5">Attaché à cette personne :</h2>
-          <ul className="flex flex-wrap ml-5 gap-5">
-            {data.allDatoCmsPersonne.nodes.map(attachedPerson => (
-              <li key={attachedPerson.id} className="flex items-center gap-4 mt-4">
-                <Link to={`/attaches/${attachedPerson.url}`} className="flex flex-col items-center gap-4">
+
+        {/* Attaché à cette personne */}
+        <section style={{ marginTop: "40px" }}>
+          <h2 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "20px" }}>Attaché à cette personne :</h2>
+          <ul style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
+            {data.allDatoCmsPersonne.nodes.map((attachedPerson) => (
+              <li key={attachedPerson.id} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                <Link
+                  to={`/attaches/${attachedPerson.url}`}
+                  style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}
+                >
                   <GatsbyImage
                     image={attachedPerson.photo.gatsbyImageData}
-                    className="w-16 h-16 "
                     alt={attachedPerson.photo.alt}
+                    style={{ width: "50px", height: "auto", borderRadius: "50%" }}
                   />
-                  <div className="text-center">
-                    <p className="font-semibold text-gray-800">{attachedPerson.prNom} {attachedPerson.nom}</p>
-                    <p className="text-sm text-gray-600">{attachedPerson.fonctionAttach}</p>
+                  <div>
+                    <p style={{ fontWeight: "bold" }}>{attachedPerson.prNom} {attachedPerson.nom}</p>
+                    <p style={{ fontSize: "14px", color: "gray" }}>{attachedPerson.fonctionAttach}</p>
                   </div>
                 </Link>
               </li>
@@ -164,49 +175,38 @@ const GouvernementPage = ({ data }) => {
 export const query = graphql`
   query PersonnePageQuery($id: String!) {
     datoCmsPersonne(id: { eq: $id }) {
-      age
-      circonscription {
-        nom
-        province {
-          nom
-        }
-      }
-      adressePostale
-      commision {
-        commision
+      prNom
+      nom
+      photo {
+        gatsbyImageData(width: 200)
       }
       facebook
       instagram
-      id
       linkedin
-      mail
-      nom
-      nomDeLaStructure
-      nombreDeMandats
+      xTwitter
+      tikTok
       numRoDeTLPhone
-      ministRe
       numRoDeTLPhone2
+      fonctionAttach
+      mail
+      adressePostale
+      remarqueCoordonnEs
       parti {
         logo {
           gatsbyImageData(width: 50)
         }
       }
-      photo {
-        gatsbyImageData(width: 200)
-      }
-      prNom
-      remarqueCoordonnEs
-      remarquesCommentaires
-      siteInternet
-      tikTok
       statut {
         nom
       }
-      url
-      ville {
+      ministRe
+      commision {
+        commision
+      }
+      circonscription {
         nom
       }
-      xTwitter
+      remarquesCommentaires
     }
     allDatoCmsPersonne(filter: { attach: { elemMatch: { id: { eq: $id } } } }) {
       nodes {
