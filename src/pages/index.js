@@ -52,8 +52,9 @@ const IndexPage = () => {
           title="Bureau de parti"
         />
         <Section
+                  link="federation"
           imageSrc="https://res.cloudinary.com/docshhbla/image/upload/c_fill,w_250,h_250/v1720088385/Who%27s%20Who%20politique/parlement_shutterstock_ok_libre_de_droit_bkzv7a.jpg"
-          title="Autre"
+          title="Fédération WB"
         />
       </article>
     </Layout>

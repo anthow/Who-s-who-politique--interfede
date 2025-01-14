@@ -14,6 +14,7 @@ exports.createPages = async ({ actions, graphql }) => {
   const gouvernementTemplate = path.resolve('./src/templates/gouvernement.js');
   const parlementTemplate = path.resolve('./src/templates/parlement.js');
   const bureauTemplate = path.resolve('./src/templates/bureau.js');
+  const federationTemplate = path.resolve('./src/templates/federation.js');
 
 
   // Ministres du gouvernement wallon
@@ -64,7 +65,7 @@ exports.createPages = async ({ actions, graphql }) => {
     }
   `);
 
-  // Députés wallons
+  // bureau de parti 
   const bureau = graphql(`
     {
       allDatoCmsPersonne(
@@ -79,9 +80,24 @@ exports.createPages = async ({ actions, graphql }) => {
       }
     }
   `);
+  // fédération WB
+  const federation = graphql(`
+    {
+      allDatoCmsPersonne(
+        filter: { statut: { elemMatch: { nom: { eq: "Fédération Wallonie-Bruxelles" } } } }
+      ) {
+        edges {
+          node {
+            url
+            id
+          }
+        }
+      }
+    }
+  `);
 
   // Attendre que toutes les requêtes GraphQL soient résolues
-  const results = await Promise.all([gouvernement, depute, traite,bureau]);
+  const results = await Promise.all([gouvernement, depute, traite,bureau, federation]);
 
   // Vérifier les erreurs pour chaque résultat
   results.forEach(result => {
@@ -116,11 +132,19 @@ exports.createPages = async ({ actions, graphql }) => {
       context: { id: node.id },
     });
   });
-  // Créer des pages pour les députés
+  // Créer des pages pour les bureau de parti
   results[3].data.allDatoCmsPersonne.edges.forEach(({ node }) => {
     createPage({
       path: `bureau/${node.url}/`,
       component: bureauTemplate,
+      context: { id: node.id },
+    });
+  });
+   // Créer des pages pour la fédération WB
+   results[3].data.allDatoCmsPersonne.edges.forEach(({ node }) => {
+    createPage({
+      path: `federation/${node.url}/`,
+      component: federationTemplate,
       context: { id: node.id },
     });
   });

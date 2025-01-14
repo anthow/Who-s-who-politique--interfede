@@ -16,9 +16,9 @@ const Layout = ({ children }) => {
   return (
     <div className="flex flex-col min-h-screen">
       <header className="w-full p-4 flex items-center justify-between head"> 
-        <span className="text-white font-black text-lg">
-          {data.site.siteMetadata?.title || "Who's Who politique"}
-        </span>
+      <Link to="/" className="text-white font-black text-lg">
+                {data.site.siteMetadata?.title || "Who's Who politique"}
+        </Link>
         <nav>
           <ul className="flex gap-5 items-center text-white">
             <li><Link to="/gouvernement" className="hover:text-gray-200">Gouvernement wallon</Link></li>
@@ -26,7 +26,7 @@ const Layout = ({ children }) => {
             <li><Link to="/commision" className="hover:text-gray-200">Commision emploi</Link></li>
             <li><Link to="/attaches" className="hover:text-gray-200">Attachés parlementaires</Link></li>
             <li><Link to="/bureau" className="hover:text-gray-200">Bureau de parti</Link></li>
-            <li><Link to="/autre" className="hover:text-gray-200">Autres</Link></li>
+            <li><Link to="/federation" className="hover:text-gray-200"> Fédération WB</Link></li>
             <li>
               <a href="https://tally.so/r/3qOqV8" target="_blank">
                 <button className="textbordeau bg-white px-3 py-1 rounded hover:bg-gray-200 transition-colors duration-300">
