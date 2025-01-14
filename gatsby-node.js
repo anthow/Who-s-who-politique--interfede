@@ -13,6 +13,8 @@ exports.createPages = async ({ actions, graphql }) => {
   const attacheTemplate = path.resolve('./src/templates/attache.js');
   const gouvernementTemplate = path.resolve('./src/templates/gouvernement.js');
   const parlementTemplate = path.resolve('./src/templates/parlement.js');
+  const bureauTemplate = path.resolve('./src/templates/bureau.js');
+
 
   // Ministres du gouvernement wallon
   const gouvernement = graphql(`
@@ -62,8 +64,24 @@ exports.createPages = async ({ actions, graphql }) => {
     }
   `);
 
+  // Députés wallons
+  const bureau = graphql(`
+    {
+      allDatoCmsPersonne(
+        filter: { statut: { elemMatch: { nom: { eq: "bureau de parti" } } } }
+      ) {
+        edges {
+          node {
+            url
+            id
+          }
+        }
+      }
+    }
+  `);
+
   // Attendre que toutes les requêtes GraphQL soient résolues
-  const results = await Promise.all([gouvernement, depute, traite]);
+  const results = await Promise.all([gouvernement, depute, traite,bureau]);
 
   // Vérifier les erreurs pour chaque résultat
   results.forEach(result => {
@@ -95,6 +113,14 @@ exports.createPages = async ({ actions, graphql }) => {
     createPage({
       path: `attaches/${node.url}/`,
       component: attacheTemplate,
+      context: { id: node.id },
+    });
+  });
+  // Créer des pages pour les députés
+  results[3].data.allDatoCmsPersonne.edges.forEach(({ node }) => {
+    createPage({
+      path: `bureau/${node.url}/`,
+      component: bureauTemplate,
       context: { id: node.id },
     });
   });
