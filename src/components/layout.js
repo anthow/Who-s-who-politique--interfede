@@ -28,7 +28,7 @@ const Layout = ({ children }) => {
             <li><Link to="/bureau" className="hover:text-gray-200">Bureau de parti</Link></li>
             <li><Link to="/federation" className="hover:text-gray-200"> Fédération WB</Link></li>
             <li>
-              <a href="https://tally.so/r/3qOqV8" target="_blank">
+              <a href="https://tally.so/r/wdK1Mo" target="_blank">
                 <button className="textbordeau bg-white px-3 py-1 rounded hover:bg-gray-200 transition-colors duration-300">
                   Demande de modif
                 </button>
