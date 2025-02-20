@@ -94,6 +94,12 @@ const GouvernementPage = ({ data }) => {
                   <p>{personne.mail}</p>
                 </div>
               )}
+               {personne.mail2 && (
+                    <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                      <img src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,h_20/v1722242440/email_q68wma.png" alt="Email 2" />
+                      <p>{personne.mail2}</p>
+                    </div>
+                  )}
               {personne.adressePostale && (
                 <p style={{ marginTop: "10px" }}>
                   Adresse pro:
@@ -108,16 +114,10 @@ const GouvernementPage = ({ data }) => {
             </section>
 
             {/* Section droite */}
-            <article style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-              <section style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <h1   style={{
-    fontSize: "32px",
-    width: "100%",
-    fontWeight: "bold",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis",
-  }}>
+            <article style={{ display: "flex", flexDirection: "column", gap: "20px", minWidth: "100%" }}>
+              <section style={{ display: "flex", alignItems: "center", gap: "10px", minWidth: "100%"  }}>
+              <h1 style={{ fontSize: "24px", fontWeight: "bold" }}>
+
                   {personne.prNom} {personne.nom}
                 </h1>
                 <figure>
@@ -130,15 +130,41 @@ const GouvernementPage = ({ data }) => {
                   )}
                 </figure>
               </section>
-              <h2 style={{ fontSize: "16px", fontWeight: "600" }}>{personne.statut?.nom}</h2>
-              <h3 style={{ fontSize: "16px", fontWeight: "700", padding: "10px", backgroundColor: "#1e90ff", color: "white", borderRadius: "5px" }}>
-                {personne.ministRe}
-              </h3>
+              <h2 style={{ fontSize: "20px", width: "100%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                {personne.statut?.nom}
+              </h2>
+              <h3 style={{
+  padding: "10px",
+  borderRadius: "5px",
+  backgroundColor: "black",
+  color: "white",
+  fontWeight: "bold",
+  whiteSpace: "normal", // Permet le retour à la ligne
+  wordWrap: "break-word", // Coupe les mots longs si besoin
+  minWidth: "200px", // Empêche que la colonne devienne trop étroite
+  maxWidth: "100%", // S'adapte à l'espace disponible
+}}>
+  {personne.ministRe}
+</h3>
 
          
-              <h3 style={{ fontSize: "18px", marginTop: "40px", fontWeight: "500" }}>
-              Remarques: {personne.remarquesCommentaires}
-</h3>
+              {personne.remarquesCommentaires && (
+                <div style={{ marginTop: "50px" }} >
+                  <h3 style={{
+                    fontSize: "22px",
+                    fontWeight: "bold",
+                    color: "#a40044",
+                    borderBottom: "1px solid #a40044",
+                    paddingBottom: "5px",
+                    marginBottom: "15px",
+                    textTransform: "uppercase",
+                    letterSpacing: "1px"
+                  }}>
+                    Remarques / Commentaires
+                  </h3>                <p>
+                    {personne.remarquesCommentaires}</p>
+                </div>
+              )}
             </article>
           </article>
         </div>
@@ -158,9 +184,12 @@ const GouvernementPage = ({ data }) => {
                     alt={attachedPerson.photo.alt}
                     style={{ width: "50px", height: "auto", borderRadius: "50%" }}
                   />
-                  <div>
-                    <p style={{ fontWeight: "bold" }}>{attachedPerson.prNom} {attachedPerson.nom}</p>
-                    <p style={{ fontSize: "14px", color: "gray" }}>{attachedPerson.fonctionAttach}</p>
+                  <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "5px" }}>
+                    <div  style={{ display: "flex", alignItems: "center", gap: "2px" }}>
+                    <p style={{ fontWeight: "bold" }}>{attachedPerson.nom}</p>
+                    <p style={{ fontWeight: "bold" }}>{attachedPerson.prNom}</p>
+                    </div>
+                    <p style={{ fontSize: "14px" }}>{attachedPerson.fonctionAttach}</p>
                   </div>
                 </Link>
               </li>
@@ -188,6 +217,7 @@ export const query = graphql`
       numRoDeTLPhone
       numRoDeTLPhone2
       fonctionAttach
+      mail2
       mail
       adressePostale
       remarqueCoordonnEs

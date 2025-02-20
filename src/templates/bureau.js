@@ -12,21 +12,32 @@ const GouvernementPage = ({ data }) => {
   const attach = data.allDatoCmsPersonne.nodes[0]?.attach;
 
   return (
-    <Layout>
+      <Layout>
       <div style={{ width: "80%", margin: "0 auto" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", marginTop: "40px" }}>
           {/* Section gauche */}
           <article style={{ display: "flex", gap: "40px" }}>
             <section style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-              <figure style={{ marginBottom: "20px" }}>
+              <figure style={{
+                marginBottom: "20px",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                width: "100%",
+                height: "auto",
+                overflow: "hidden"
+              }}>
                 {personne.photo && (
                   <GatsbyImage
                     image={personne.photo.gatsbyImageData}
                     alt={personne.photo.alt || ""}
-                    style={{ width: "100%", height: "auto" }}
+                    style={{ width: "100%", maxHeight: "100%", objectFit: "contain" }}
+                    imgStyle={{ objectFit: "contain", width: "100%", height: "auto" }}
                   />
                 )}
               </figure>
+
+
               <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
                 {personne.facebook && (
                   <a href={personne.facebook}>
@@ -94,6 +105,12 @@ const GouvernementPage = ({ data }) => {
                   <p>{personne.mail}</p>
                 </div>
               )}
+              {personne.mail2 && (
+                    <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                      <img src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,h_20/v1722242440/email_q68wma.png" alt="Email 2" />
+                      <p>{personne.mail2}</p>
+                    </div>
+                  )}
               {personne.adressePostale && (
                 <p style={{ marginTop: "10px" }}>
                   Adresse pro:
@@ -108,7 +125,7 @@ const GouvernementPage = ({ data }) => {
             </section>
 
             {/* Section droite */}
-            <article style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+            <article style={{ display: "flex", flexDirection: "column", gap: "5px", minWidth: "100%" }}>
               <section style={{ display: "flex", alignItems: "center", gap: "10px" }}>
                 <h1 style={{ fontSize: "24px", fontWeight: "bold" }}>
                   {personne.prNom} {personne.nom}
@@ -123,48 +140,83 @@ const GouvernementPage = ({ data }) => {
                   )}
                 </figure>
               </section>
-              {attach && (
-                <section style={{ display: "flex", gap: "10px", marginTop: "10px" }}>
-                  {attach.map((attache, index) => (
-                    <p key={index} style={{ backgroundColor: "#d3d3d3", padding: "10px", borderRadius: "5px" }}>
-                      {attache.prNom} {attache.nom}
-                    </p>
-                  ))}
-                </section>
-              )}
+              <h2 style={{ fontSize: "20px", width: "100%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                {personne.statut?.nom}
+              </h2>
+              <h3 style={{ fontSize: "18px", fontWeight: "500", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                {personne.ministRe}
+              </h3>
+              <div style={{ display: "flex", gap: "20px", flexWrap: "wrap", alignItems: "center" , overflow: "hidden" }}>
+                {personne.commision?.commision && (
+                  <h4 style={{ padding: "10px", borderRadius: "5px", backgroundColor: "black", color: "white", fontWeight: "bold", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
+                    {personne.commision.commision}
+                  </h4>
+                )}
+               {personne.circonscription?.nom && (
+  <h4 style={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "10px",
+    borderRadius: "5px",
+    backgroundColor: "#1e90ff",
+    color: "white",
+    fontWeight: "bold",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis"
+  }}>
+    Circonscription : {personne.circonscription.nom}
+  </h4>
+)}
+
+{personne.effectifOuSupplAnt?.nom && (
+  <h4 style={{
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    height: "40px", // Même hauteur que l'autre bloc
+    padding: "10px",
+    borderRadius: "5px",
+    backgroundColor: "#1e90ff",
+    color: "white",
+    fontWeight: "bold",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    textOverflow: "ellipsis"
+  }}>
+    Membre {personne.effectifOuSupplAnt.nom}
+  </h4>
+)}
+
+                
+              </div>
+
+              <div style={{ marginTop: "50px" }} >
+                  <h3 style={{
+                    fontSize: "22px",
+                    fontWeight: "bold",
+                    color: "#a40044",
+                    borderBottom: "1px solid #a40044",
+                    paddingBottom: "5px",
+                    marginBottom: "15px",
+                    textTransform: "uppercase",
+                    letterSpacing: "1px"
+                  }}>
+                    Remarques / Commentaires
+                  </h3>
+
               {personne.remarquesCommentaires && (
-                <p style={{ marginTop: "10px" }}>{personne.remarquesCommentaires}</p>
+                                <p>
+                    {personne.remarquesCommentaires}</p>
               )}
+                              </div>
+
             </article>
           </article>
         </div>
-
-        {/* Attaché à cette personne */}
-        <section style={{ marginTop: "40px" }}>
-          <h2 style={{ fontSize: "24px", fontWeight: "bold", marginBottom: "20px" }}>Attaché à cette personne :</h2>
-          <ul style={{ display: "flex", flexWrap: "wrap", gap: "20px" }}>
-            {data.allDatoCmsPersonne.nodes.map((attachedPerson) => (
-              <li key={attachedPerson.id} style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                <Link
-                  to={`/attaches/${attachedPerson.url}`}
-                  style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" }}
-                >
-                  <GatsbyImage
-                    image={attachedPerson.photo.gatsbyImageData}
-                    alt={attachedPerson.photo.alt}
-                    style={{ width: "50px", height: "auto", borderRadius: "50%" }}
-                  />
-                  <div>
-                    <p style={{ fontWeight: "bold" }}>{attachedPerson.nom}</p>
-                    <p style={{ fontSize: "14px" }}>{attachedPerson.fonctionAttach}</p>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
-    </Layout>
+</div></Layout>
+    
   );
 };
 

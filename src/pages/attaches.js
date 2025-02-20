@@ -101,7 +101,7 @@ export const query = graphql`
   {
     allDatoCmsPersonne(
       sort: { attach: { nom: ASC } }
-      filter: { statut: { elemMatch: { nom: { eq: "attaché parlementaire" } } } }
+    filter: {actifInactif: {eq: false}, statut: {elemMatch: {nom: {eq: "attaché parlementaire"}}}}
     ) {
       edges {
         node {

@@ -222,3 +222,12 @@ pre tt:before,
 pre tt:after {
   content: none;
 }
+
+
+nav ul {
+  display: flex;
+  flex-wrap: nowrap; /* Empêche le passage à la ligne */
+  gap: 10px; /* Ajuste l’espace entre les éléments */
+  overflow-x: auto; /* Ajoute un défilement horizontal si nécessaire */
+  white-space: nowrap; /* Empêche le retour à la ligne */
+}

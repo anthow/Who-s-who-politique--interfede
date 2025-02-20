@@ -141,7 +141,7 @@ exports.createPages = async ({ actions, graphql }) => {
     });
   });
    // Créer des pages pour la fédération WB
-   results[3].data.allDatoCmsPersonne.edges.forEach(({ node }) => {
+   results[4].data.allDatoCmsPersonne.edges.forEach(({ node }) => {
     createPage({
       path: `federation/${node.url}/`,
       component: federationTemplate,

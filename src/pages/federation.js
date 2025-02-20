@@ -32,7 +32,7 @@ const Parlement = ({ data }) => {
   const renderMembers = (members, partyClass, partyName) => (
     <>
       <h2 className={`text-xl ${partyClass} text-white w-max p-2 rounded font-bold mb-4`}>
-         {partyName}
+        {partyName}
       </h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {members.map(({ node }) => (
@@ -78,7 +78,8 @@ export const query = graphql`
   {
     allDatoCmsPersonne(
             sort: {nom: ASC}
-      filter: { statut: { elemMatch: { nom: { eq: "Fédération Wallonie-Bruxelles" } } } }
+                        filter: {actifInactif: {eq: false}, statut: {elemMatch: {nom: {eq: "Fédération Wallonie-Bruxelles"}}}}
+
     ) {
       edges {
         node {

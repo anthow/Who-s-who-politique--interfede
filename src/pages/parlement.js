@@ -78,7 +78,8 @@ export const query = graphql`
   {
     allDatoCmsPersonne(
             sort: {nom: ASC}
-      filter: { statut: { elemMatch: { nom: { eq: "Député wallon" } } } }
+                                    filter: {actifInactif: {eq: false}, statut: {elemMatch: {nom: {eq: "Député wallon"}}}}
+
     ) {
       edges {
         node {
