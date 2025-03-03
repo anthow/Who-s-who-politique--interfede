@@ -2,6 +2,9 @@ import * as React from "react";
 import { graphql, Link } from "gatsby";
 import Layout from "../components/layout";
 import { GatsbyImage } from "gatsby-plugin-image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook, faInstagram, faLinkedin, faTwitter, faTiktok } from "@fortawesome/free-brands-svg-icons"; // Icônes de marques
+import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons"; // Icônes solides (Téléphone, Email)
 
 const GouvernementPage = ({ data }) => {
   if (!data || !data.datoCmsPersonne || !data.allDatoCmsPersonne.nodes) {
@@ -22,7 +25,7 @@ const GouvernementPage = ({ data }) => {
                 {personne.photo && (
                   <GatsbyImage
                     image={personne.photo.gatsbyImageData}
-                    alt={personne.photo.alt || ""}
+                    alt={personne.photo.alt || "Photo de la personne"}
                     style={{ width: "100%", height: "auto" }}
                   />
                 )}
@@ -30,53 +33,33 @@ const GouvernementPage = ({ data }) => {
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "20px" }}>
                 {personne.facebook && (
                   <a href={personne.facebook}>
-                    <img
-                      src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,w_20/v1720860465/logo%20RS/Facebook_Logo_2023_bosach.png"
-                      alt="Facebook"
-                    />
+                    <FontAwesomeIcon icon={faFacebook} size="1x" aria-label="Facebook" />
                   </a>
                 )}
                 {personne.instagram && (
                   <a href={personne.instagram}>
-                    <img
-                      src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,w_20/v1720860751/logo%20RS/Instagram_icon_p86ytx.png"
-                      alt="Instagram"
-                    />
+                    <FontAwesomeIcon icon={faInstagram} size="1x" aria-label="Instagram" />
                   </a>
                 )}
                 {personne.linkedin && (
                   <a href={personne.linkedin}>
-                    <img
-                      src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,w_20/v1720860791/logo%20RS/LinkedIn_logo_initials_qgiyo2.png"
-                      alt="LinkedIn"
-                    />
+                    <FontAwesomeIcon icon={faLinkedin} size="1x" aria-label="LinkedIn" />
                   </a>
                 )}
                 {personne.xTwitter && (
                   <a href={personne.xTwitter}>
-                    <img
-                      src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,w_20/v1720861003/logo%20RS/sl_z_072523_61700_01_fjkzoq.jpg"
-                      alt="Twitter"
-                    />
+                    <FontAwesomeIcon icon={faTwitter} size="1x" aria-label="Twitter" />
                   </a>
                 )}
                 {personne.tikTok && (
                   <a href={personne.tikTok}>
-                    <img
-                      src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,h_20/v1720867814/logo%20RS/TikTok_logo.svg_ccgee3.png"
-                      alt="TikTok"
-                    />
+                    <FontAwesomeIcon icon={faTiktok} size="1x" aria-label="TikTok" />
                   </a>
                 )}
               </div>
               {(personne.numRoDeTLPhone || personne.numRoDeTLPhone2) && (
                 <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                  <figure>
-                    <img
-                      src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,h_20/v1721915558/samples/tel-removebg-preview_aq5nhh.png"
-                      alt="Phone"
-                    />
-                  </figure>
+                  <FontAwesomeIcon icon={faPhone} size="1x" aria-label="Téléphone" />
                   <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
                     {personne.numRoDeTLPhone && <span>{personne.numRoDeTLPhone}</span>}
                     {personne.numRoDeTLPhone2 && <span>{personne.numRoDeTLPhone2}</span>}
@@ -85,21 +68,16 @@ const GouvernementPage = ({ data }) => {
               )}
               {personne.mail && (
                 <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "10px" }}>
-                  <figure>
-                    <img
-                      src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,h_20/v1722242440/email_q68wma.png"
-                      alt="Email"
-                    />
-                  </figure>
+                  <FontAwesomeIcon icon={faEnvelope} size="1x" aria-label="Email" />
                   <p>{personne.mail}</p>
                 </div>
               )}
-               {personne.mail2 && (
-                    <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                      <img src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,h_20/v1722242440/email_q68wma.png" alt="Email 2" />
-                      <p>{personne.mail2}</p>
-                    </div>
-                  )}
+              {personne.mail2 && (
+                <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                  <FontAwesomeIcon icon={faEnvelope} size="1x" aria-label="Email 2" />
+                  <p>{personne.mail2}</p>
+                </div>
+              )}
               {personne.adressePostale && (
                 <p style={{ marginTop: "10px" }}>
                   Adresse pro:
@@ -115,9 +93,8 @@ const GouvernementPage = ({ data }) => {
 
             {/* Section droite */}
             <article style={{ display: "flex", flexDirection: "column", gap: "20px", minWidth: "100%" }}>
-              <section style={{ display: "flex", alignItems: "center", gap: "10px", minWidth: "100%"  }}>
-              <h1 style={{ fontSize: "24px", fontWeight: "bold" }}>
-
+              <section style={{ display: "flex", alignItems: "center", gap: "10px", minWidth: "100%" }}>
+                <h1 style={{ fontSize: "24px", fontWeight: "bold" }}>
                   {personne.prNom} {personne.nom}
                 </h1>
                 <figure>
@@ -133,36 +110,39 @@ const GouvernementPage = ({ data }) => {
               <h2 style={{ fontSize: "20px", width: "100%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                 {personne.statut?.nom}
               </h2>
-              <h3 style={{
-  padding: "10px",
-  borderRadius: "5px",
-  backgroundColor: "black",
-  color: "white",
-  fontWeight: "bold",
-  whiteSpace: "normal", // Permet le retour à la ligne
-  wordWrap: "break-word", // Coupe les mots longs si besoin
-  minWidth: "200px", // Empêche que la colonne devienne trop étroite
-  maxWidth: "100%", // S'adapte à l'espace disponible
-}}>
-  {personne.ministRe}
-</h3>
+              <h3
+                style={{
+                  padding: "10px",
+                  borderRadius: "5px",
+                  backgroundColor: "black",
+                  color: "white",
+                  fontWeight: "bold",
+                  whiteSpace: "normal",
+                  wordWrap: "break-word",
+                  minWidth: "200px",
+                  maxWidth: "100%",
+                }}
+              >
+                {personne.ministRe}
+              </h3>
 
-         
               {personne.remarquesCommentaires && (
-                <div style={{ marginTop: "50px" }} >
-                  <h3 style={{
-                    fontSize: "22px",
-                    fontWeight: "bold",
-                    color: "#a40044",
-                    borderBottom: "1px solid #a40044",
-                    paddingBottom: "5px",
-                    marginBottom: "15px",
-                    textTransform: "uppercase",
-                    letterSpacing: "1px"
-                  }}>
+                <div style={{ marginTop: "50px" }}>
+                  <h3
+                    style={{
+                      fontSize: "22px",
+                      fontWeight: "bold",
+                      color: "#a40044",
+                      borderBottom: "1px solid #a40044",
+                      paddingBottom: "5px",
+                      marginBottom: "15px",
+                      textTransform: "uppercase",
+                      letterSpacing: "1px",
+                    }}
+                  >
                     Remarques / Commentaires
-                  </h3>                <p>
-                    {personne.remarquesCommentaires}</p>
+                  </h3>
+                  <p>{personne.remarquesCommentaires}</p>
                 </div>
               )}
             </article>
@@ -184,10 +164,10 @@ const GouvernementPage = ({ data }) => {
                     alt={attachedPerson.photo.alt}
                     style={{ width: "50px", height: "auto", borderRadius: "50%" }}
                   />
-                  <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "5px" }}>
-                    <div  style={{ display: "flex", alignItems: "center", gap: "2px" }}>
-                    <p style={{ fontWeight: "bold" }}>{attachedPerson.nom}</p>
-                    <p style={{ fontWeight: "bold" }}>{attachedPerson.prNom}</p>
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "5px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "2px" }}>
+                      <p style={{ fontWeight: "bold" }}>{attachedPerson.nom}</p>
+                      <p style={{ fontWeight: "bold" }}>{attachedPerson.prNom}</p>
                     </div>
                     <p style={{ fontSize: "14px" }}>{attachedPerson.fonctionAttach}</p>
                   </div>

@@ -5,7 +5,7 @@ const PasswordPopup = () => {
   const [password, setPassword] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [showPassword, setShowPassword] = useState(false); // Nouveau state pour afficher/masquer le mot de passe
-  const correctPassword = "Interfede$2025"; // Remplace par ton mot de passe
+  const correctPassword = "CISP_2025"; // Remplace par ton mot de passe
 
   // Vérifie si le mot de passe est valide à chaque changement
   const handlePasswordChange = (event) => {
