@@ -20,7 +20,7 @@ const queries = [
         }
       }
     `,
-    transformer: ({ data }) => data.allDatoCmsPersonne.nodes, // Formater les données
+    transformer: ({ data }) => data.allDatoCmsPersonne.edges.map(({ node }) => node), // Transforme les objets pour s'assurer qu'ils ont un "contentDigest"
     indexName: process.env.GATSBY_ALO, // Nom de l’index
   },
 ];
