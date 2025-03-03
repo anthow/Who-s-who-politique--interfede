@@ -162,7 +162,7 @@ const GouvernementPage = ({ data }) => {
                 color: "#a40044",
                 borderBottom: "1px solid #a40044",
                 paddingBottom: "5px",
-                marginBottom: "15px",
+                marginBottom: "16px",
                 textTransform: "uppercase",
                 letterSpacing: "1px"
               }}>
