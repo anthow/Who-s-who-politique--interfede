@@ -2,6 +2,9 @@ import * as React from "react";
 import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import { GatsbyImage } from "gatsby-plugin-image";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFacebook, faInstagram, faLinkedin, faTwitter, faTiktok } from "@fortawesome/free-brands-svg-icons"; // Icônes de marques
+import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons"; // Icônes solides (Téléphone, Email)
 
 const GouvernementPage = ({ data }) => {
   if (!data || !data.datoCmsPersonne) {
@@ -55,90 +58,54 @@ const GouvernementPage = ({ data }) => {
                 />
               )}
             </figure>
-            <div style={{ display: "flex", gap: "10px", marginBottom: "20px" }}>
-            {facebook && (
-                <a href={facebook} aria-label="Facebook">
-                  <img
-                    src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,w_20/v1720860465/logo%20RS/Facebook_Logo_2023_bosach.png"
-                    alt="Facebook"
-                  />
-                </a>
-              )}
-              {instagram && (
-                <a href={instagram} aria-label="Instagram">
-                  <img
-                    src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,w_20/v1720860751/logo%20RS/Instagram_icon_p86ytx.png"
-                    alt="Instagram"
-                  />
-                </a>
-              )}
-              {linkedin && (
-                <a href={linkedin} aria-label="LinkedIn">
-                  <img
-                    src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,w_20/v1720860791/logo%20RS/LinkedIn_logo_initials_qgiyo2.png"
-                    alt="LinkedIn"
-                  />
-                </a>
-              )}
-              {xTwitter && (
-                <a href={xTwitter} aria-label="Twitter">
-                  <img
-                    src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,w_20/v1720861003/logo%20RS/sl_z_072523_61700_01_fjkzoq.jpg"
-                    alt="Twitter"
-                  />
-                </a>
-              )}
-              {tikTok && (
-                <a href={tikTok} aria-label="TikTok">
-                  <img
-                    src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,h_20/v1720867814/logo%20RS/TikTok_logo.svg_ccgee3.png"
-                    alt="TikTok"
-                  />
-                </a>
-              )}
-            </div>
-            {(numRoDeTLPhone || numRoDeTLPhone2) && (
-              <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                <figure>
-                  <img
-                    src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,h_20/v1721915558/samples/tel-removebg-preview_aq5nhh.png"
-                    alt="Phone"
-                  />
-                </figure>
-                <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-                  {numRoDeTLPhone && <span style={{ color: "#4a4a4a" }}>{numRoDeTLPhone}</span>}
-                  {numRoDeTLPhone2 && <span style={{ color: "#4a4a4a" }}>{numRoDeTLPhone2}</span>}
-                </div>
-              </div>
-            )}
-            {mail && (
-                <div style={{ display: "flex", gap: "10px", alignItems: "center", marginTop: "10px" }}>
-                <figure>
-                  <img
-                    src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,h_20/v1722242440/email_q68wma.png"
-                    alt="Email"
-                  />
-                </figure>
-                <p>{mail}</p>
-              </div>
-            )}
-              {mail2 && (
-                    <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                      <img src="https://res.cloudinary.com/docshhbla/image/upload/c_pad,h_20/v1722242440/email_q68wma.png" alt="Email 2" />
-                      <p>{mail2}</p>
-                    </div>
-                  )}
-            {adressePostale && (
-                <p style={{ marginTop: "10px" }}>
-                Adresse pro:
-                <br /> {adressePostale}
-              </p>
-            )}
-            {remarqueCoordonnEs && (
-                <p style={{ marginTop: "10px", fontStyle: "italic", color: "gray" }}>
-                Remarque Coordonnées: {remarqueCoordonnEs}
-              </p>
-            )}
+           <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "20px" }}>
+                           {facebook && (
+                             <a href={facebook}>
+                               <FontAwesomeIcon icon={faFacebook} size="1x" aria-label="Facebook" />
+                             </a>
+                           )}
+                           {instagram && (
+                             <a href={instagram}>
+                               <FontAwesomeIcon icon={faInstagram} size="1x" aria-label="Instagram" />
+                             </a>
+                           )}
+                           {linkedin && (
+                             <a href={linkedin}>
+                               <FontAwesomeIcon icon={faLinkedin} size="1x" aria-label="LinkedIn" />
+                             </a>
+                           )}
+                           {xTwitter && (
+                             <a href={xTwitter}>
+                               <FontAwesomeIcon icon={faTwitter} size="1x" aria-label="Twitter" />
+                             </a>
+                           )}
+                           {tikTok && (
+                             <a href={tikTok}>
+                               <FontAwesomeIcon icon={faTiktok} size="1x" aria-label="TikTok" />
+                             </a>
+                           )}
+                         </div>
+                         {(numRoDeTLPhone || numRoDeTLPhone2) && (
+                           <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                             <FontAwesomeIcon icon={faPhone} size="1x" aria-label="Téléphone" />
+                             <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+                               {numRoDeTLPhone && <span>{numRoDeTLPhone}</span>}
+                               {numRoDeTLPhone2 && <span>{numRoDeTLPhone2}</span>}
+                             </div>
+                           </div>
+                         )}
+                         {mail && (
+                           <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "10px" }}>
+                             <FontAwesomeIcon icon={faEnvelope} size="1x" aria-label="Email" />
+                             <p>{mail}</p>
+                           </div>
+                         )}
+                         {mail2 && (
+                           <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                             <FontAwesomeIcon icon={faEnvelope} size="1x" aria-label="Email 2" />
+                             <p>{mail2}</p>
+                           </div>
+                         )}
           </section>
                       {/* Section droite */}
           <article style={{ display: "flex", flexDirection: "column", gap: "5px", minWidth: "100%" }}>

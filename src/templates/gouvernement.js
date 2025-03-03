@@ -67,14 +67,13 @@ const GouvernementPage = ({ data }) => {
                 </div>
               )}
               {personne.mail && (
-                <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "10px" }}>
+                <div style={{ display: "flex", flexDirection: "row", gap: "10px", marginTop: "10px" }}>
                   <FontAwesomeIcon icon={faEnvelope} size="1x" aria-label="Email" />
                   <p>{personne.mail}</p>
                 </div>
               )}
               {personne.mail2 && (
                 <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                  <FontAwesomeIcon icon={faEnvelope} size="1x" aria-label="Email 2" />
                   <p>{personne.mail2}</p>
                 </div>
               )}
