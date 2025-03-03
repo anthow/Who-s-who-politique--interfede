@@ -6,7 +6,10 @@
   "author": "Kyle Mathews <mathews.kyle@gmail.com>",
   "dependencies": {
     "@types/punycode": "^2.1.4",
+    "algoliasearch": "^4.24.0",
+    "dotenv": "^16.4.7",
     "gatsby": "^5.14.1",
+    "gatsby-plugin-algolia": "^1.0.3",
     "gatsby-plugin-google-fonts": "^1.0.1",
     "gatsby-plugin-image": "^3.13.1",
     "gatsby-plugin-manifest": "^5.13.1",
@@ -16,6 +19,7 @@
     "gatsby-transformer-sharp": "^5.13.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-instantsearch-hooks-web": "^6.47.3",
     "react-markdown": "^9.0.1",
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.0",
