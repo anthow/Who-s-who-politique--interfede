@@ -20,7 +20,8 @@ const Layout = ({ children }) => {
       <PasswordPopup /> {/* Affiche le pop-up pour mot de passe */}
       
       <div className="flex flex-col min-h-screen">
-        <header className="w-full p-4 flex items-center justify-between head">
+        <header className="w-full p-4 flex flex-col head">
+          <div className="w-full p-4 flex items-center justify-between">
           <Link to="/" className="text-white font-black text-base">
             {data.site.siteMetadata?.title || "Who's Who politique"}
           </Link>
@@ -41,8 +42,9 @@ const Layout = ({ children }) => {
               </li>
             </ul>
           </nav>
+          </div>
+          <Search/>
         </header>
-
         <main className="mx-auto p-4 flex-grow">
           {children}
         </main>

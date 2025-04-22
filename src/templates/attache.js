@@ -94,18 +94,21 @@ const GouvernementPage = ({ data }) => {
                              </div>
                            </div>
                          )}
-                         {mail && (
-                           <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "10px" }}>
-                             <FontAwesomeIcon icon={faEnvelope} size="1x" aria-label="Email" />
-                             <p>{mail}</p>
-                           </div>
-                         )}
-                         {mail2 && (
-                           <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                             <FontAwesomeIcon icon={faEnvelope} size="1x" aria-label="Email 2" />
-                             <p>{mail2}</p>
-                           </div>
-                         )}
+               {(mail || mail2) && (
+  <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "20px", marginTop: "10px" }}>
+    {/* Colonne pour l'icône */}
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <FontAwesomeIcon icon={faEnvelope} size="1x" aria-label="Email" />
+    </div>
+
+    {/* Colonne pour les adresses */}
+    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+      {mail && <p>{mail}</p>}
+      {mail2 && <p>{mail2}</p>}
+    </div>
+  </div>
+)}
+
           </section>
                       {/* Section droite */}
           <article style={{ display: "flex", flexDirection: "column", gap: "5px", minWidth: "100%" }}>

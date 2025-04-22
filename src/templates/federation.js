@@ -3,8 +3,8 @@ import { graphql, Link } from "gatsby";
 import Layout from "../components/layout";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faInstagram, faLinkedin, faTwitter, faTiktok } from "@fortawesome/free-brands-svg-icons"; // Icônes de marques
-import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons"; // Icônes solides (Téléphone, Email)
+import { faFacebook, faInstagram, faLinkedin, faTwitter, faTiktok } from "@fortawesome/free-brands-svg-icons"; 
+import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons"; 
 
 const GouvernementPage = ({ data }) => {
   if (!data || !data.datoCmsPersonne || !data.allDatoCmsPersonne.nodes) {
@@ -13,13 +13,17 @@ const GouvernementPage = ({ data }) => {
 
   const personne = data.datoCmsPersonne;
   const attach = data.allDatoCmsPersonne.nodes[0]?.attach;
+  
+  // Extraction des emails
+  const mail = personne.mail;
+  const mail2 = personne.mail2;
 
   return (
     <Layout>
       <div style={{ width: "80%", margin: "0 auto" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", marginTop: "40px" }}>
+          {/* Section gauche */}
           <article style={{ display: "flex", gap: "40px" }}>
-            {/* Section gauche */}
             <section style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               <figure style={{ marginBottom: "20px" }}>
                 {personne.photo && (
@@ -30,54 +34,40 @@ const GouvernementPage = ({ data }) => {
                   />
                 )}
               </figure>
+              
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "20px" }}>
-                              {personne.facebook && (
-                                <a href={personne.facebook}>
-                                  <FontAwesomeIcon icon={faFacebook} size="1x" aria-label="Facebook" />
-                                </a>
-                              )}
-                              {personne.instagram && (
-                                <a href={personne.instagram}>
-                                  <FontAwesomeIcon icon={faInstagram} size="1x" aria-label="Instagram" />
-                                </a>
-                              )}
-                              {personne.linkedin && (
-                                <a href={personne.linkedin}>
-                                  <FontAwesomeIcon icon={faLinkedin} size="1x" aria-label="LinkedIn" />
-                                </a>
-                              )}
-                              {personne.xTwitter && (
-                                <a href={personne.xTwitter}>
-                                  <FontAwesomeIcon icon={faTwitter} size="1x" aria-label="Twitter" />
-                                </a>
-                              )}
-                              {personne.tikTok && (
-                                <a href={personne.tikTok}>
-                                  <FontAwesomeIcon icon={faTiktok} size="1x" aria-label="TikTok" />
-                                </a>
-                              )}
-                            </div>
-                            {(personne.numRoDeTLPhone || personne.numRoDeTLPhone2) && (
-                              <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                                <FontAwesomeIcon icon={faPhone} size="1x" aria-label="Téléphone" />
-                                <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-                                  {personne.numRoDeTLPhone && <span>{personne.numRoDeTLPhone}</span>}
-                                  {personne.numRoDeTLPhone2 && <span>{personne.numRoDeTLPhone2}</span>}
-                                </div>
-                              </div>
-                            )}
-                            {personne.mail && (
-                              <div style={{ display: "flex", flexDirection: "column", gap: "10px", marginTop: "10px" }}>
-                                <FontAwesomeIcon icon={faEnvelope} size="1x" aria-label="Email" />
-                                <p>{personne.mail}</p>
-                              </div>
-                            )}
-                            {personne.mail2 && (
-                              <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                                <FontAwesomeIcon icon={faEnvelope} size="1x" aria-label="Email 2" />
-                                <p>{personne.mail2}</p>
-                              </div>
-                            )}
+                {personne.facebook && <a href={personne.facebook}><FontAwesomeIcon icon={faFacebook} size="1x" aria-label="Facebook" /></a>}
+                {personne.instagram && <a href={personne.instagram}><FontAwesomeIcon icon={faInstagram} size="1x" aria-label="Instagram" /></a>}
+                {personne.linkedin && <a href={personne.linkedin}><FontAwesomeIcon icon={faLinkedin} size="1x" aria-label="LinkedIn" /></a>}
+                {personne.xTwitter && <a href={personne.xTwitter}><FontAwesomeIcon icon={faTwitter} size="1x" aria-label="Twitter" /></a>}
+                {personne.tikTok && <a href={personne.tikTok}><FontAwesomeIcon icon={faTiktok} size="1x" aria-label="TikTok" /></a>}
+              </div>
+
+              {(personne.numRoDeTLPhone || personne.numRoDeTLPhone2) && (
+                <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+                  <FontAwesomeIcon icon={faPhone} size="1x" aria-label="Téléphone" />
+                  <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
+                    {personne.numRoDeTLPhone && <span>{personne.numRoDeTLPhone}</span>}
+                    {personne.numRoDeTLPhone2 && <span>{personne.numRoDeTLPhone2}</span>}
+                  </div>
+                </div>
+              )}
+
+              {(mail || mail2) && (
+                <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "20px", marginTop: "10px" }}>
+                  {/* Colonne pour l'icône */}
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <FontAwesomeIcon icon={faEnvelope} size="1x" aria-label="Email" />
+                  </div>
+
+                  {/* Colonne pour les adresses */}
+                  <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                    {mail && <p>{mail}</p>}
+                    {mail2 && <p>{mail2}</p>}
+                  </div>
+                </div>
+              )}
+
               {personne.adressePostale && (
                 <p style={{ marginTop: "10px" }}>
                   Adresse pro:
@@ -93,9 +83,8 @@ const GouvernementPage = ({ data }) => {
 
             {/* Section droite */}
             <article style={{ display: "flex", flexDirection: "column", gap: "20px", minWidth: "100%" }}>
-              <section style={{ display: "flex", alignItems: "center", gap: "10px", minWidth: "100%"  }}>
-              <h1 style={{ fontSize: "24px", fontWeight: "bold" }}>
-
+              <section style={{ display: "flex", alignItems: "center", gap: "10px", minWidth: "100%" }}>
+                <h1 style={{ fontSize: "24px", fontWeight: "bold" }}>
                   {personne.prNom} {personne.nom}
                 </h1>
                 <figure>
@@ -108,26 +97,27 @@ const GouvernementPage = ({ data }) => {
                   )}
                 </figure>
               </section>
+              
               <h2 style={{ fontSize: "20px", width: "100%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                 {personne.statut?.nom}
               </h2>
+              
               <h3 style={{
-  padding: "10px",
-  borderRadius: "5px",
-  backgroundColor: "black",
-  color: "white",
-  fontWeight: "bold",
-  whiteSpace: "normal", // Permet le retour à la ligne
-  wordWrap: "break-word", // Coupe les mots longs si besoin
-  minWidth: "200px", // Empêche que la colonne devienne trop étroite
-  maxWidth: "100%", // S'adapte à l'espace disponible
-}}>
-  {personne.ministRe}
-</h3>
+                padding: "10px",
+                borderRadius: "5px",
+                backgroundColor: "black",
+                color: "white",
+                fontWeight: "bold",
+                whiteSpace: "normal",
+                wordWrap: "break-word",
+                minWidth: "200px",
+                maxWidth: "100%",
+              }}>
+                {personne.ministRe}
+              </h3>
 
-         
               {personne.remarquesCommentaires && (
-                <div style={{ marginTop: "50px" }} >
+                <div style={{ marginTop: "50px" }}>
                   <h3 style={{
                     fontSize: "22px",
                     fontWeight: "bold",
@@ -139,8 +129,8 @@ const GouvernementPage = ({ data }) => {
                     letterSpacing: "1px"
                   }}>
                     Remarques / Commentaires
-                  </h3>                <p>
-                    {personne.remarquesCommentaires}</p>
+                  </h3>
+                  <p>{personne.remarquesCommentaires}</p>
                 </div>
               )}
             </article>
@@ -162,10 +152,10 @@ const GouvernementPage = ({ data }) => {
                     alt={attachedPerson.photo.alt}
                     style={{ width: "50px", height: "auto", borderRadius: "50%" }}
                   />
-                  <div  style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "5px" }}>
-                    <div  style={{ display: "flex", alignItems: "center", gap: "2px" }}>
-                    <p style={{ fontWeight: "bold" }}>{attachedPerson.nom}</p>
-                    <p style={{ fontWeight: "bold" }}>{attachedPerson.prNom}</p>
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "5px" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "2px" }}>
+                      <p style={{ fontWeight: "bold" }}>{attachedPerson.nom}</p>
+                      <p style={{ fontWeight: "bold" }}>{attachedPerson.prNom}</p>
                     </div>
                     <p style={{ fontSize: "14px" }}>{attachedPerson.fonctionAttach}</p>
                   </div>
@@ -196,6 +186,7 @@ export const query = graphql`
       numRoDeTLPhone2
       fonctionAttach
       mail
+      mail2
       adressePostale
       remarqueCoordonnEs
       parti {

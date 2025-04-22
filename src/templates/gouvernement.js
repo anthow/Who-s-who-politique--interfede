@@ -3,8 +3,8 @@ import { graphql, Link } from "gatsby";
 import Layout from "../components/layout";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faInstagram, faLinkedin, faTwitter, faTiktok } from "@fortawesome/free-brands-svg-icons"; // Icônes de marques
-import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons"; // Icônes solides (Téléphone, Email)
+import { faFacebook, faInstagram, faLinkedin, faTwitter, faTiktok } from "@fortawesome/free-brands-svg-icons"; 
+import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons"; 
 
 const GouvernementPage = ({ data }) => {
   if (!data || !data.datoCmsPersonne || !data.allDatoCmsPersonne.nodes) {
@@ -14,12 +14,16 @@ const GouvernementPage = ({ data }) => {
   const personne = data.datoCmsPersonne;
   const attach = data.allDatoCmsPersonne.nodes[0]?.attach;
 
+  // Définition des variables mail et mail2
+  const mail = personne.mail;
+  const mail2 = personne.mail2;
+
   return (
     <Layout>
       <div style={{ width: "80%", margin: "0 auto" }}>
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", marginTop: "40px" }}>
+          {/* Section gauche */}
           <article style={{ display: "flex", gap: "40px" }}>
-            {/* Section gauche */}
             <section style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
               <figure style={{ marginBottom: "20px" }}>
                 {personne.photo && (
@@ -30,6 +34,7 @@ const GouvernementPage = ({ data }) => {
                   />
                 )}
               </figure>
+              
               <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "20px" }}>
                 {personne.facebook && (
                   <a href={personne.facebook}>
@@ -57,6 +62,7 @@ const GouvernementPage = ({ data }) => {
                   </a>
                 )}
               </div>
+
               {(personne.numRoDeTLPhone || personne.numRoDeTLPhone2) && (
                 <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
                   <FontAwesomeIcon icon={faPhone} size="1x" aria-label="Téléphone" />
@@ -66,17 +72,21 @@ const GouvernementPage = ({ data }) => {
                   </div>
                 </div>
               )}
-              {personne.mail && (
-                <div style={{ display: "flex", flexDirection: "row", gap: "10px", marginTop: "10px" }}>
-                  <FontAwesomeIcon icon={faEnvelope} size="1x" aria-label="Email" />
-                  <p>{personne.mail}</p>
+
+              {/* Section email */}
+              {(mail || mail2) && (
+                <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "20px", marginTop: "10px" }}>
+                  <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <FontAwesomeIcon icon={faEnvelope} size="1x" aria-label="Email" />
+                  </div>
+
+                  <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
+                    {mail && <p>{mail}</p>}
+                    {mail2 && <p>{mail2}</p>}
+                  </div>
                 </div>
               )}
-              {personne.mail2 && (
-                <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                  <p>{personne.mail2}</p>
-                </div>
-              )}
+
               {personne.adressePostale && (
                 <p style={{ marginTop: "10px" }}>
                   Adresse pro:
@@ -106,39 +116,37 @@ const GouvernementPage = ({ data }) => {
                   )}
                 </figure>
               </section>
+
               <h2 style={{ fontSize: "20px", width: "100%", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
                 {personne.statut?.nom}
               </h2>
-              <h3
-                style={{
-                  padding: "10px",
-                  borderRadius: "5px",
-                  backgroundColor: "black",
-                  color: "white",
-                  fontWeight: "bold",
-                  whiteSpace: "normal",
-                  wordWrap: "break-word",
-                  minWidth: "200px",
-                  maxWidth: "100%",
-                }}
-              >
+
+              <h3 style={{
+                padding: "10px",
+                borderRadius: "5px",
+                backgroundColor: "black",
+                color: "white",
+                fontWeight: "bold",
+                whiteSpace: "normal",
+                wordWrap: "break-word",
+                minWidth: "200px",
+                maxWidth: "100%",
+              }}>
                 {personne.ministRe}
               </h3>
 
               {personne.remarquesCommentaires && (
                 <div style={{ marginTop: "50px" }}>
-                  <h3
-                    style={{
-                      fontSize: "22px",
-                      fontWeight: "bold",
-                      color: "#a40044",
-                      borderBottom: "1px solid #a40044",
-                      paddingBottom: "5px",
-                      marginBottom: "15px",
-                      textTransform: "uppercase",
-                      letterSpacing: "1px",
-                    }}
-                  >
+                  <h3 style={{
+                    fontSize: "22px",
+                    fontWeight: "bold",
+                    color: "#a40044",
+                    borderBottom: "1px solid #a40044",
+                    paddingBottom: "5px",
+                    marginBottom: "15px",
+                    textTransform: "uppercase",
+                    letterSpacing: "1px"
+                  }}>
                     Remarques / Commentaires
                   </h3>
                   <p>{personne.remarquesCommentaires}</p>
@@ -196,8 +204,8 @@ export const query = graphql`
       numRoDeTLPhone
       numRoDeTLPhone2
       fonctionAttach
-      mail2
       mail
+      mail2
       adressePostale
       remarqueCoordonnEs
       parti {
