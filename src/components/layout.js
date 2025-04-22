@@ -43,7 +43,6 @@ const Layout = ({ children }) => {
             </ul>
           </nav>
           </div>
-          <Search/>
         </header>
         <main className="mx-auto p-4 flex-grow">
           {children}
