@@ -33,6 +33,18 @@ const Parlement = ({ data }) => {
   const renderMembers = (members, circonscriptionClass, circonscriptionName) => {
     const sortedMembers = members.sort((a, b) => PARTY_ORDER.indexOf(a.parti.nom) - PARTY_ORDER.indexOf(b.parti.nom));
 
+    const exportEmails = () => {
+      const emails = sortedMembers.map(member => member.mail).join("\n");
+      const blob = new Blob([emails], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${circonscriptionName}_emails.txt`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    };
+
     return (
       <>
         <h2 className={`text-xl ${circonscriptionClass} text-black w-max p-2 rounded font-bold mb-4`}>
@@ -59,17 +71,26 @@ const Parlement = ({ data }) => {
                   <h3 className="text-lg font-semibold">
                     {node.prNom} {node.nom}
                   </h3>
-                  <GatsbyImage
-                    image={node.parti.logo.gatsbyImageData}
-                    alt={`${node.parti.nom} logo`}
-                    className="w-full h-auto max-w-[50px]" // Ajustez la largeur maximale selon vos besoins
-                  />
+                  <div className="flex-shrink-0 w-6 h-6">
+                    <GatsbyImage
+                      image={node.parti.logo.gatsbyImageData}
+                      alt={`${node.parti.nom} logo`}
+                      className="w-full h-full object-contain"
+                      style={{ maxWidth: '100%', maxHeight: '100%' }}
+                    />
+                  </div>
                 </div>
               </Link>
               <p className="text-sm text-gray-600 mt-2 text-center">{node.mail}</p>
             </div>
           ))}
         </div>
+        <button
+          onClick={exportEmails}
+          className="head w-max text-white px-4 py-2 rounded mt-4"
+        >
+          Télécharger les e-mails de {circonscriptionName}
+        </button>
       </>
     );
   };
