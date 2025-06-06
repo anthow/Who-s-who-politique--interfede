@@ -6,6 +6,20 @@ import { Link } from "gatsby";
 
 const PARTY_ORDER = ["MR", "Les engagés", "PS", "PTB", "Ecolo"];
 
+const CIRCONSCRIPTION_ORDER = [
+  "Nivelles",
+  "Namur",
+  "Dinant-Philippeville",
+  "Arlon-Marche-en-Famenne-Bastogne-Neufchâteau-Virton",
+  "Soignies-La Louvière",
+  "Mons",
+  "Tournai-Ath-Mouscron",
+  "Charleroi-Thuin",
+  "Huy-Waremme",
+  "Liège",
+  "Verviers"
+];
+
 const CIRCONSCRIPTION_CLASSES = {
   "Nivelles": "fondNivelles",
   "Namur": "fondNamur",
@@ -46,10 +60,18 @@ const Parlement = ({ data }) => {
     };
 
     return (
-      <>
-        <h2 className={`text-xl ${circonscriptionClass} text-black w-max p-2 rounded font-bold mb-4`}>
-          {circonscriptionName}
-        </h2>
+      <div key={circonscriptionName} id={`section-${circonscriptionName}`} className="mb-8">
+        <div className="flex justify-between items-center mb-4">
+          <h2 className={`text-xl ${circonscriptionClass} text-black w-max p-2 rounded font-bold mb-4`}>
+            {circonscriptionName}
+          </h2>
+          <button
+            onClick={exportEmails}
+            className="head bg-blue-500 text-white px-4 py-2 rounded"
+          >
+            Télécharger les e-mails de {circonscriptionName}
+          </button>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {sortedMembers.map((node) => (
             <div
@@ -85,21 +107,30 @@ const Parlement = ({ data }) => {
             </div>
           ))}
         </div>
-        <button
-          onClick={exportEmails}
-          className="head w-max text-white px-4 py-2 rounded mt-4"
-        >
-          Télécharger les e-mails de {circonscriptionName}
-        </button>
-      </>
+      </div>
     );
   };
 
   return (
     <Layout className="">
       <section className="w-10/12 flex flex-col gap-20 m-auto py-10">
-        {Object.entries(membersByCirconscription).map(([circonscriptionName, members]) =>
-          members.length > 0 ? renderMembers(members, CIRCONSCRIPTION_CLASSES[circonscriptionName], circonscriptionName) : null
+        <div className="flex flex-wrap gap-4 mb-8">
+          {CIRCONSCRIPTION_ORDER.map((circonscriptionName) =>
+            membersByCirconscription[circonscriptionName] && membersByCirconscription[circonscriptionName].length > 0 ? (
+              <button
+                key={circonscriptionName}
+                onClick={() => document.getElementById(`section-${circonscriptionName}`).scrollIntoView({ behavior: 'smooth' })}
+                className="head bg-blue-500 text-white px-4 py-2 rounded"
+              >
+                {circonscriptionName}
+              </button>
+            ) : null
+          )}
+        </div>
+        {CIRCONSCRIPTION_ORDER.map((circonscriptionName) =>
+          membersByCirconscription[circonscriptionName] && membersByCirconscription[circonscriptionName].length > 0
+            ? renderMembers(membersByCirconscription[circonscriptionName], CIRCONSCRIPTION_CLASSES[circonscriptionName], circonscriptionName)
+            : null
         )}
       </section>
     </Layout>
