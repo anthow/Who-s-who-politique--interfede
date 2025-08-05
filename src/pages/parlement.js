@@ -3,6 +3,7 @@ import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { Link } from "gatsby";
+import ExcelExport from "../components/ExcelExport";
 
 const Parlement = ({ data }) => {
   const mrMembers = data.allDatoCmsPersonne.edges.filter(
@@ -21,19 +22,24 @@ const Parlement = ({ data }) => {
     ({ node }) => node.parti.nom === "Ecolo"
   );
 
-  const defiMembers = data.allDatoCmsPersonne.edges.filter(
-    ({ node }) => node.parti.nom === "Défi"
-  );
-
   const ptbMembers = data.allDatoCmsPersonne.edges.filter(
     ({ node }) => node.parti.nom === "PTB"
   );
 
   const renderMembers = (members, partyClass, partyName) => (
     <>
-      <h2 className={`text-xl ${partyClass} text-white w-max p-2 rounded font-bold mb-4`}>
-         {partyName}
-      </h2>
+      <div className="flex justify-between items-center mb-4">
+        <h2 className={`text-xl ${partyClass} text-white w-max p-2 rounded font-bold`}>
+          {partyName}
+        </h2>
+        {members.length > 0 && (
+          <ExcelExport
+            data={members}
+            filename="parlement"
+            sectionName={partyName.toLowerCase().replace(/\s+/g, '_')}
+          />
+        )}
+      </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {members.map(({ node }) => (
           <Link
@@ -52,7 +58,6 @@ const Parlement = ({ data }) => {
               <h3 className="text-lg font-semibold">
                 {node.prNom} {node.nom}
               </h3>
-
             </div>
           </Link>
         ))}
@@ -63,12 +68,19 @@ const Parlement = ({ data }) => {
   return (
     <Layout className="">
       <section className="w-10/12 flex flex-col gap-20 m-auto py-10">
+        {/* Bouton d'export pour toute la page */}
+        <div className="flex justify-end mb-6">
+          <ExcelExport
+            data={data.allDatoCmsPersonne.edges}
+            filename="parlement_complet"
+          />
+        </div>
+
         {mrMembers.length > 0 && renderMembers(mrMembers, "fondMR", "MR")}
         {lesEngagesMembers.length > 0 && renderMembers(lesEngagesMembers, "fondengage", "Engagés")}
         {psMembers.length > 0 && renderMembers(psMembers, "fondPS", "PS")}
-        {ecoloMembers.length > 0 && renderMembers(ecoloMembers, "fondEcolo", "Ecolo")}
-        {defiMembers.length > 0 && renderMembers(defiMembers, "fondDefi", "Défi")}
         {ptbMembers.length > 0 && renderMembers(ptbMembers, "fondPTB", "PTB")}
+        {ecoloMembers.length > 0 && renderMembers(ecoloMembers, "fondEcolo", "Ecolo")}
       </section>
     </Layout>
   );
@@ -77,9 +89,11 @@ const Parlement = ({ data }) => {
 export const query = graphql`
   {
     allDatoCmsPersonne(
-            sort: {nom: ASC}
-                                    filter: {actifInactif: {eq: false}, statut: {elemMatch: {nom: {eq: "Député wallon"}}}}
-
+      sort: {nom: ASC}
+      filter: {
+        actifInactif: {eq: false}
+        statut: {elemMatch: {nom: {eq: "Député wallon"}}}
+      }
     ) {
       edges {
         node {
@@ -91,6 +105,19 @@ export const query = graphql`
           nom
           id
           prNom
+          numRoDeTLPhone
+          numRoDeTLPhone2
+          mail
+          mail2
+          facebook
+          instagram
+          linkedin
+          xTwitter
+          tikTok
+          remarquesCommentaires
+          statut {
+            nom
+          }
           parti {
             nom
             logo {

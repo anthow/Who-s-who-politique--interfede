@@ -21,8 +21,7 @@ const GouvernementPage = ({ data }) => {
     numRoDeTLPhone,
     numRoDeTLPhone2,
     mail,
-    adressePostale,
-    remarqueCoordonnEs,
+
     prNom,
     nom,
     parti,

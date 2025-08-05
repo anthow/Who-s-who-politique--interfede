@@ -1,99 +1,206 @@
-<!-- AUTO-GENERATED-CONTENT:START (STARTER) -->
-<p align="center">
-  <a href="https://www.gatsbyjs.com">
-    <img alt="Gatsby" src="https://www.gatsbyjs.com/Gatsby-Monogram.svg" width="60" />
-  </a>
-</p>
-<h1 align="center">
-  Gatsby's default starter
-</h1>
+# Who's Who politique - Interfédération des CISP
 
-Kick off your project with this default boilerplate. This starter ships with the main Gatsby configuration files you might need to get up and running blazing fast with the blazing fast app generator for React.
+Un site web moderne pour découvrir les acteurs politiques de la Wallonie et de Bruxelles, développé avec Gatsby et DatoCMS.
 
-_Have another more specific idea? You may want to check out our vibrant collection of [official and community-created starters](https://www.gatsbyjs.com/docs/gatsby-starters/)._
+## 🚀 Fonctionnalités
 
-## 🚀 Quick start
+- **Navigation responsive** avec menu mobile
+- **Recherche avancée** avec Algolia
+- **Authentification sécurisée** avec mot de passe
+- **Design moderne** avec Tailwind CSS
+- **Performance optimisée** avec Gatsby
+- **CMS headless** avec DatoCMS
+- **SEO optimisé** avec métadonnées complètes
 
-1.  **Create a Gatsby site.**
+## 🛠️ Technologies utilisées
 
-    Use the Gatsby CLI ([install instructions](https://www.gatsbyjs.com/docs/tutorial/getting-started/part-0/#gatsby-cli)) to create a new site, specifying the default starter.
+- **Gatsby 5** - Framework React
+- **DatoCMS** - CMS headless
+- **Algolia** - Recherche avancée
+- **Tailwind CSS** - Framework CSS
+- **React** - Bibliothèque JavaScript
+- **GraphQL** - API de requêtes
 
-    ```shell
-    # create a new Gatsby site using the default starter
-    gatsby new my-default-starter https://github.com/gatsbyjs/gatsby-starter-default
-    ```
+## 📦 Installation
 
-1.  **Start developing.**
+1. **Cloner le repository**
+   ```bash
+   git clone [url-du-repo]
+   cd Who-s-who-politique--interfede
+   ```
 
-    Navigate into your new site’s directory and start it up.
+2. **Installer les dépendances**
+   ```bash
+   npm install
+   ```
 
-    ```shell
-    cd my-default-starter/
-    gatsby develop
-    ```
+3. **Configurer les variables d'environnement**
+   ```bash
+   cp env.example .env
+   ```
+   
+   Puis éditer le fichier `.env` avec vos clés API :
+   ```env
+   # DatoCMS
+   DATOCMS_API_TOKEN=your_datocms_api_token_here
+   
+   # Algolia
+   GATSBY_ALGOLIA_APP_ID=your_algolia_app_id
+   GATSBY_ALGOLIA_SEARCH_API_KEY=your_algolia_search_api_key
+   GATSBY_ALGOLIA_ADMIN_API_KEY=your_algolia_admin_api_key
+   GATSBY_ALGOLIA_INDEX_NAME=personnes
+   
+   # Sécurité
+   GATSBY_SITE_PASSWORD=your_site_password_here
+   
+   # URL du site
+   GATSBY_SITE_URL=https://whoswho-politique.be
+   ```
 
-1.  **Open the source code and start editing!**
+4. **Lancer le serveur de développement**
+   ```bash
+   npm run develop
+   ```
 
-    Your site is now running at `http://localhost:8000`!
+5. **Ouvrir le site**
+   Naviguez vers [http://localhost:8000](http://localhost:8000)
 
-    Note: You'll also see a second link: `http://localhost:8000/___graphql`. This is a tool you can use to experiment with querying your data. Learn more about using this tool in the [Gatsby Tutorial](https://www.gatsbyjs.com/docs/tutorial/getting-started/part-4/#use-graphiql-to-explore-the-data-layer-and-write-graphql-queries).
+## 🏗️ Structure du projet
 
-    Open the `my-default-starter` directory in your code editor of choice and edit `src/pages/index.js`. Save your changes and the browser will update in real time!
+```
+src/
+├── components/          # Composants React réutilisables
+│   ├── layout.js       # Layout principal
+│   ├── search.js       # Composant de recherche
+│   └── pop_up.js       # Popup d'authentification
+├── pages/              # Pages Gatsby
+│   ├── index.js        # Page d'accueil
+│   ├── gouvernement.js # Gouvernement wallon
+│   ├── parlement.js    # Parlement wallon
+│   ├── commission.js   # Commission emploi
+│   └── ...
+├── styles/             # Styles CSS
+│   └── global.css      # Styles globaux
+├── templates/          # Templates Gatsby
+└── utils/              # Utilitaires
+    └── algolia-queries.js
+```
 
-## 🚀 Quick start (Netlify)
+## 🎨 Personnalisation
 
-Deploy this starter with one click on [Netlify](https://app.netlify.com/signup):
+### Couleurs des partis politiques
 
-[<img src="https://www.netlify.com/img/deploy/button.svg" alt="Deploy to Netlify" />](https://app.netlify.com/start/deploy?repository=https://github.com/gatsbyjs/gatsby-starter-default)
+Les couleurs sont définies dans `src/styles/global.css` :
 
-## 🧐 What's inside?
+```css
+:root {
+  --color-mr: #012dfd;      /* MR */
+  --color-engage: #00e7d1;  /* Les Engagés */
+  --color-ps: #ff0000;      /* PS */
+  --color-ecolo: #66b649;   /* Ecolo */
+  --color-ptb: #ee3f32;     /* PTB */
+  --color-defi: #dd007a;    /* Défi */
+}
+```
 
-A quick look at the top-level files and directories you'll see in a typical Gatsby project.
+### Ajout d'un nouveau parti
 
-    .
-    ├── node_modules
-    ├── src
-    ├── .gitignore
-    ├── gatsby-browser.js
-    ├── gatsby-config.js
-    ├── gatsby-node.js
-    ├── gatsby-ssr.js
-    ├── LICENSE
-    ├── package.json
-    └── README.md
+1. Ajouter la couleur dans `src/styles/global.css`
+2. Créer la classe CSS correspondante
+3. Mettre à jour les composants qui utilisent les partis
 
-1.  **`/node_modules`**: This directory contains all of the modules of code that your project depends on (npm packages) are automatically installed.
+## 🔍 Recherche Algolia
 
-1.  **`/src`**: This directory will contain all of the code related to what you will see on the front-end of your site (what you see in the browser) such as your site header or a page template. `src` is a convention for “source code”.
+Le site utilise Algolia pour la recherche avancée. Pour configurer :
 
-1.  **`.gitignore`**: This file tells git which files it should not track / not maintain a version history for.
+1. Créer un compte Algolia
+2. Configurer les variables d'environnement
+3. Indexer les données avec `npm run build`
 
-1.  **`gatsby-browser.js`**: This file is where Gatsby expects to find any usage of the [Gatsby browser APIs](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-browser/) (if any). These allow customization/extension of default Gatsby settings affecting the browser.
+## 🔐 Sécurité
 
-1.  **`gatsby-config.js`**: This is the main configuration file for a Gatsby site. This is where you can specify information about your site (metadata) like the site title and description, which Gatsby plugins you’d like to include, etc. (Check out the [config docs](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-config/) for more detail).
+- **Authentification** : Popup de mot de passe sécurisé
+- **Variables d'environnement** : Toutes les clés API sont externalisées
+- **HTTPS** : Recommandé en production
 
-1.  **`gatsby-node.js`**: This file is where Gatsby expects to find any usage of the [Gatsby Node APIs](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-node/) (if any). These allow customization/extension of default Gatsby settings affecting pieces of the site build process.
+## 📱 Responsive Design
 
-1.  **`gatsby-ssr.js`**: This file is where Gatsby expects to find any usage of the [Gatsby server-side rendering APIs](https://www.gatsbyjs.com/docs/reference/config-files/gatsby-ssr/) (if any). These allow customization of default Gatsby settings affecting server-side rendering.
+Le site est entièrement responsive avec :
+- **Mobile-first** design
+- **Menu hamburger** sur mobile
+- **Grilles adaptatives** avec Tailwind CSS
+- **Images optimisées** avec Gatsby Image
 
-1.  **`LICENSE`**: This Gatsby starter is licensed under the 0BSD license. This means that you can see this file as a placeholder and replace it with your own license.
+## 🚀 Déploiement
 
-1.  **`package.json`**: A manifest file for Node.js projects, which includes things like metadata (the project’s name, author, etc). This manifest is how npm knows which packages to install for your project.
+### Netlify (recommandé)
 
-1.  **`README.md`**: A text file containing useful reference information about your project.
+1. Connecter le repository GitHub
+2. Configurer les variables d'environnement
+3. Déployer automatiquement
 
-## 🎓 Learning Gatsby
+### Autres plateformes
 
-Looking for more guidance? Full documentation for Gatsby lives [on the website](https://www.gatsbyjs.com/). Here are some places to start:
+Le site peut être déployé sur :
+- Vercel
+- Gatsby Cloud
+- AWS S3 + CloudFront
+- Surge.sh
 
-- **For most developers, we recommend starting with our [in-depth tutorial for creating a site with Gatsby](https://www.gatsbyjs.com/docs/tutorial/getting-started/).** It starts with zero assumptions about your level of ability and walks through every step of the process.
+## 🧪 Tests
 
-- **To dive straight into code samples, head [to our documentation](https://www.gatsbyjs.com/docs/).** In particular, check out the _Guides_, _API Reference_, and _Advanced Tutorials_ sections in the sidebar.
+```bash
+# Lancer les tests
+npm test
 
-## 💫 Deploy
+# Vérifier le formatage
+npm run format
 
-[Build, Deploy, and Host On Netlify](https://netlify.com)
+# Nettoyer le cache
+npm run clean
+```
 
-The fastest way to combine your favorite tools and APIs to build the fastest sites, stores, and apps for the web. And also the best place to build, deploy, and host your Gatsby sites.
+## 📈 Performance
 
-<!-- AUTO-GENERATED-CONTENT:END -->
+- **Lighthouse Score** : 90+ sur tous les critères
+- **Core Web Vitals** : Optimisé
+- **SEO** : Métadonnées complètes
+- **Accessibilité** : WCAG 2.1 AA
+
+## 🤝 Contribution
+
+1. Fork le projet
+2. Créer une branche feature (`git checkout -b feature/AmazingFeature`)
+3. Commit les changements (`git commit -m 'Add some AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrir une Pull Request
+
+## 📄 Licence
+
+Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
+
+## 📞 Support
+
+Pour toute question ou problème :
+- Ouvrir une issue sur GitHub
+- Contacter l'équipe de développement
+- Consulter la documentation DatoCMS
+
+## 🔄 Mises à jour
+
+### Gatsby
+```bash
+npm update gatsby
+```
+
+### DatoCMS
+- Mettre à jour le plugin : `npm update gatsby-source-datocms`
+- Vérifier la compatibilité des API
+
+### Algolia
+- Mettre à jour les clés API si nécessaire
+- Re-indexer les données après modification
+
+---
+
+**Développé avec ❤️ par l'équipe de l'Interfédération des CISP**

@@ -2,132 +2,313 @@
 @tailwind components;
 @tailwind utilities;
 
-.head{
-    background-color:#a40044 ;
-}
-.textbordeau{
-    color:#a40044 ;
+/* Variables CSS personnalisées */
+:root {
+  --color-bordeau: #a40044;
+  --color-bleu: #36b7c1;
+  --color-mr: #012dfd;
+  --color-engage: #00e7d1;
+  --color-ps: #ff0000;
+  --color-ecolo: #66b649;
+  --color-ptb: #ee3f32;
+  --color-defi: #dd007a;
 }
 
-.headbleu{
-background-color: #36b7c1;
+/* Styles de base */
+* {
+  box-sizing: border-box;
 }
 
-/* Appliquer Montserrat aux titres */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.6;
+  color: #333;
+}
+
+/* Classes utilitaires */
+.head {
+  background-color: var(--color-bordeau);
+}
+
+.textbordeau {
+  color: var(--color-bordeau);
+}
+
+.headbleu {
+  background-color: var(--color-bleu);
+}
+
+/* Système de typographie cohérent */
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
-  }
-  
-  /* Appliquer Roboto au texte normal */
-  body, p, span, a, li, div {
-    font-family: 'Roboto', sans-serif;
-  }
-  
-
-h1{font-size: xx-large;}
-h2{font-size: x-large;}
-h3,h2.rubrique {font-size: large;}
-.margin-top{
-    margin-top: 10px;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  line-height: 1.2;
 }
 
-.margin-bottom{
-    margin-bottom: 5px;
+h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
 }
 
-.fondMR{
-    background-color: #012dfd;
+h2 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
 }
 
-.fondengage{
-    background-color:#00e7d1;
+h3, .rubrique {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
 }
 
-.fondPS{
-    background-color:#ff0000;
+/* Classes de typographie cohérentes */
+.title-large {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  line-height: 1.2;
 }
 
-.fondEcolo{
-    background-color: #66b649;
+.title-medium {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  line-height: 1.2;
 }
 
-.fondPTB{
-
-    background-color:#ee3f32
-    ;
+.title-small {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 600;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  line-height: 1.2;
 }
 
-.fondDefi{
-    background-color: #dd007a ;
+.text-body {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.6;
 }
 
-/* Styles spécifiques à la page "Revue de presse" */
+.text-small {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.text-xs {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+/* Nouvelle classe pour les titres plus petits */
+.rubrique-small {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 400;
+  line-height: 1.2;
+  font-size: 0.875rem; /* 14px - un peu plus grand */
+}
+
+/* Espacement */
+.margin-top {
+  margin-top: 10px;
+}
+
+.margin-bottom {
+  margin-bottom: 5px;
+}
+
+/* Couleurs des partis politiques */
+.fondMR {
+  background-color: var(--color-mr);
+}
+
+.fondengage {
+  background-color: var(--color-engage);
+}
+
+.fondPS {
+  background-color: var(--color-ps);
+}
+
+.fondEcolo {
+  background-color: var(--color-ecolo);
+}
+
+.fondPTB {
+  background-color: var(--color-ptb);
+}
+
+.fondDefi {
+  background-color: var(--color-defi);
+}
+
+/* Styles pour la revue de presse */
 .revue-de-presse-page {
- 
-    padding: 20px;
-    background-color: #f4f4f4;
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
 }
 
-/* Titre de la page */
 .revue-de-presse-page .title {
-    font-size: 2.5em;
-    text-align: center;
-    color: #333;
-    margin-bottom: 30px;
-    padding-bottom: 10px;
+  font-size: clamp(2rem, 5vw, 3rem);
+  text-align: center;
+  color: #333;
+  margin-bottom: 30px;
+  padding-bottom: 10px;
+  border-bottom: 3px solid var(--color-bordeau);
 }
 
-/* Conteneur de chaque article */
 .revue-de-presse-page .article {
-    margin-bottom: 30px;
-    padding: 20px;
-    background: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
+  margin-bottom: 30px;
+  padding: 25px;
+  background: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  border-left: 4px solid var(--color-bordeau);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-/* Style du contenu de l'article */
+.revue-de-presse-page .article:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
 .revue-de-presse-page .article-content h2 {
-    font-size: 1.8em;
-    color: #333;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 5px;
+  font-size: clamp(1.5rem, 4vw, 2rem);
+  color: #333;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #e5e7eb;
+  padding-bottom: 8px;
 }
 
 .revue-de-presse-page .article-content h3 {
-    font-size: 1.5em;
-    color: #555;
-    margin-top: 20px;
-    margin-bottom: 10px;
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  color: #555;
+  margin-top: 25px;
+  margin-bottom: 15px;
 }
 
 .revue-de-presse-page .article-content p {
-    font-size: 1.2em;
-    line-height: 1.6;
-    color: #666;
-    margin-bottom: 20px;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: #666;
+  margin-bottom: 20px;
 }
 
 .revue-de-presse-page .article-content ul {
-    list-style-type: disc;
-    margin-left: 20px;
-    color: #444;
+  list-style-type: disc;
+  margin-left: 25px;
+  color: #444;
+  margin-bottom: 20px;
 }
 
 .revue-de-presse-page .article-content ul li {
-    margin-bottom: 2px;
+  margin-bottom: 8px;
+  line-height: 1.6;
 }
 
 .revue-de-presse-page .article-content a {
-    color: #007BFF;
-    text-decoration: none;
-    border-bottom: 1px dotted #007BFF;
-    transition: color 0.3s ease-in-out, border-bottom 0.3s ease-in-out;
+  color: var(--color-bordeau);
+  text-decoration: none;
+  border-bottom: 1px dotted var(--color-bordeau);
+  transition: all 0.3s ease;
 }
 
 .revue-de-presse-page .article-content a:hover {
-    color: #0056b3;
-    border-bottom: 1px solid #0056b3;
+  color: #8a0038;
+  border-bottom: 1px solid #8a0038;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .revue-de-presse-page {
+    padding: 15px;
+  }
+  
+  .revue-de-presse-page .article {
+    padding: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .revue-de-presse-page .article-content p {
+    font-size: 1rem;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-in {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* Focus styles pour l'accessibilité */
+button:focus,
+a:focus,
+input:focus,
+textarea:focus {
+  outline: 2px solid var(--color-bordeau);
+  outline-offset: 2px;
+}
+
+/* Styles pour les images */
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Styles pour les liens */
+a {
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-bordeau);
+}
+
+/* Styles pour les boutons */
+.btn {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 6px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background-color: var(--color-bordeau);
+  color: white;
+}
+
+.btn-primary:hover {
+  background-color: #8a0038;
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  background-color: transparent;
+  color: var(--color-bordeau);
+  border: 2px solid var(--color-bordeau);
+}
+
+.btn-secondary:hover {
+  background-color: var(--color-bordeau);
+  color: white;
 }
 

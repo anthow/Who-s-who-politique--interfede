@@ -5,7 +5,7 @@ import { GatsbyImage } from "gatsby-plugin-image"
 import { Link } from "gatsby"
 import ExcelExport from "../components/ExcelExport"
 
-const Gouvernement = ({ data }) => {
+const Commission = ({ data }) => {
   const mrMembers = data.allDatoCmsPersonne.edges.filter(
     ({ node }) => node.parti.nom === "MR"
   )
@@ -18,12 +18,12 @@ const Gouvernement = ({ data }) => {
     ({ node }) => node.parti.nom === "PS"
   )
 
-  const ecoloMembers = data.allDatoCmsPersonne.edges.filter(
-    ({ node }) => node.parti.nom === "Ecolo"
-  )
-
   const ptbMembers = data.allDatoCmsPersonne.edges.filter(
     ({ node }) => node.parti.nom === "PTB"
+  )
+
+  const ecoloMembers = data.allDatoCmsPersonne.edges.filter(
+    ({ node }) => node.parti.nom === "Ecolo"
   )
 
   const renderMembers = (members, partyClass, partyName) => (
@@ -35,7 +35,7 @@ const Gouvernement = ({ data }) => {
         {members.length > 0 && (
           <ExcelExport 
             data={members} 
-            filename="gouvernement" 
+            filename="commission" 
             sectionName={partyName.toLowerCase().replace(/\s+/g, '_')} 
           />
         )}
@@ -43,7 +43,7 @@ const Gouvernement = ({ data }) => {
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
         {members.map(({ node }) => (
           <Link
-            to={`../gouvernement/${node.url}`}
+            to={`../commission/${node.url}`}
             key={node.id}
             className="flex flex-col bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition-shadow duration-300"
           >
@@ -58,11 +58,6 @@ const Gouvernement = ({ data }) => {
               <h3 className="text-lg font-semibold">
                 {node.prNom} {node.nom}
               </h3>
-              {node.ministRe && (
-                <h3 className="text-sm text-gray-600">
-                  {node.ministRe}
-                </h3>
-              )}
             </div>
           </Link>
         ))}
@@ -77,7 +72,7 @@ const Gouvernement = ({ data }) => {
         <div className="flex justify-end mb-6">
           <ExcelExport 
             data={data.allDatoCmsPersonne.edges} 
-            filename="gouvernement_complet" 
+            filename="commission_complet" 
           />
         </div>
         
@@ -96,8 +91,9 @@ export const query = graphql`
     allDatoCmsPersonne(
       sort: {nom: ASC}
       filter: {
-        actifInactif: {eq: false}
-        statut: {elemMatch: {nom: {eq: "Ministre du gouverment wallon"}}}
+        commision: { commision: { eq: "COMMISSION DE L'ÉCONOMIE, DE L'EMPLOI ET DE LA FORMATION" } }
+        actifInactif: { eq: false }
+        statut: { elemMatch: { nom: { eq: "Député wallon" } } }
       }
     ) {
       edges {
@@ -110,7 +106,6 @@ export const query = graphql`
           nom
           id
           prNom
-          ministRe
           numRoDeTLPhone
           numRoDeTLPhone2
           mail
@@ -136,11 +131,11 @@ export const query = graphql`
   }
 `
 
-export default Gouvernement
+export default Commission
 
 export const Head = () => (
   <>
-    <title>Gouvernement wallon - Who's Who politique</title>
-    <meta name="description" content="Découvrez les membres du gouvernement wallon." />
+    <title>Commission emploi - Who's Who politique</title>
+    <meta name="description" content="Découvrez les membres de la commission de l'économie, de l'emploi et de la formation du parlement wallon." />
   </>
-)
+) 

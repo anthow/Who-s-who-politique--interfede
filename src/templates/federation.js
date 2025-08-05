@@ -12,7 +12,6 @@ const GouvernementPage = ({ data }) => {
   }
 
   const personne = data.datoCmsPersonne;
-  const attach = data.allDatoCmsPersonne.nodes[0]?.attach;
   
   // Extraction des emails
   const mail = personne.mail;

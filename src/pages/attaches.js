@@ -3,45 +3,41 @@ import { graphql } from "gatsby";
 import Layout from "../components/layout";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { Link } from "gatsby";
+import ExcelExport from "../components/ExcelExport";
 
-const Parlement = ({ data }) => {
-  // Fonction utilitaire pour filtrer les membres par parti
+const Attaches = ({ data }) => {
+  // Fonction pour filtrer les attachés Jeholet
+  const jeholetMembers = data.allDatoCmsPersonne.edges.filter(
+    ({ node }) => node.attach && node.attach.some(attaché => attaché.nom === "JEHOLET")
+  )
+
+  // Fonction pour filtrer par parti
   const filterByParty = (partyName) =>
     data.allDatoCmsPersonne.edges.filter(
       ({ node }) => node.parti && node.parti.nom === partyName
-    );
+    )
 
-  // Fonction pour prioriser les membres avec "JEHOLET" dans attach.nom
-  const prioritizeJeholet = (members) => {
-    return members.sort(({ node: a }, { node: b }) => {
-      const aHasJeholet = a.attach.some((attaché) => attaché.nom === "JEHOLET");
-      const bHasJeholet = b.attach.some((attaché) => attaché.nom === "JEHOLET");
+  const mrMembers = filterByParty("MR")
+  const lesEngagesMembers = filterByParty("Les engagés")
+  const psMembers = filterByParty("PS")
+  const ptbMembers = filterByParty("PTB")
+  const ecoloMembers = filterByParty("Ecolo")
 
-      if (aHasJeholet && !bHasJeholet) return -1;
-      if (!aHasJeholet && bHasJeholet) return 1;
-      return a.nom.localeCompare(b.nom); // Sinon, trier par ordre alphabétique
-    });
-  };
-
-  // Filtrage et tri par parti
-  const partyMembers = {
-    MR: prioritizeJeholet(filterByParty("MR")),
-    LesEngages: prioritizeJeholet(filterByParty("Les engagés")),
-    PS: prioritizeJeholet(filterByParty("PS")),
-    Ecolo: prioritizeJeholet(filterByParty("Ecolo")),
-    Defi: prioritizeJeholet(filterByParty("Défi")),
-    PTB: prioritizeJeholet(filterByParty("PTB")),
-  };
-
-  // Fonction pour afficher les membres d'un parti
   const renderMembers = (members, partyClass, partyName) => {
-    if (!members || members.length === 0) return null;
+    if (!members || members.length === 0) return null
 
     return (
       <>
-        <h2 className={`text-xl ${partyClass} text-white w-max p-2 rounded font-bold mb-4`}>
-          {partyName}
-        </h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className={`text-xl ${partyClass} text-white w-max p-2 rounded font-bold`}>
+            {partyName}
+          </h2>
+          <ExcelExport 
+            data={members} 
+            filename="attaches" 
+            sectionName={partyName.toLowerCase().replace(/\s+/g, '_')} 
+          />
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
           {members.map(({ node }) => (
             <Link
@@ -66,42 +62,54 @@ const Parlement = ({ data }) => {
                 </h3>
                 {node.attach && node.attach.length > 0 ? (
                   node.attach.map((attaché, index) => (
-                    <h3 key={index}>
+                    <h3 key={index} className="text-sm text-gray-600">
                       {attaché.prNom || "Prénom"} {attaché.nom || "Nom"}
                     </h3>
                   ))
                 ) : (
                   <h3 className="text-gray-500">Pas de données d'attaché</h3>
                 )}
-                {node.fonctionAttach && <h4>{node.fonctionAttach}</h4>}
+                {node.fonctionAttach && <h4 className="text-sm text-gray-600">{node.fonctionAttach}</h4>}
               </div>
             </Link>
           ))}
         </div>
       </>
-    );
-  };
+    )
+  }
 
   return (
-    <Layout>
+    <Layout className="">
       <section className="w-10/12 flex flex-col gap-20 m-auto py-10">
-        {Object.entries(partyMembers).map(([partyName, members]) =>
-          renderMembers(
-            members,
-            `fond${partyName}`,
-            partyName.replace(/([A-Z])/g, " $1").trim()
-          )
-        )}
+        {/* Bouton d'export pour toute la page */}
+        <div className="flex justify-end mb-6">
+          <ExcelExport 
+            data={data.allDatoCmsPersonne.edges} 
+            filename="attaches_complet" 
+          />
+        </div>
+        
+        {/* Jeholet en premier */}
+        {jeholetMembers.length > 0 && renderMembers(jeholetMembers, "bg-blue-600", "Attachés Jeholet")}
+        {/* Puis l'ordre des partis standard */}
+        {mrMembers.length > 0 && renderMembers(mrMembers, "fondMR", "MR")}
+        {lesEngagesMembers.length > 0 && renderMembers(lesEngagesMembers, "fondengage", "Engagés")}
+        {psMembers.length > 0 && renderMembers(psMembers, "fondPS", "PS")}
+        {ptbMembers.length > 0 && renderMembers(ptbMembers, "fondPTB", "PTB")}
+        {ecoloMembers.length > 0 && renderMembers(ecoloMembers, "fondEcolo", "Ecolo")}
       </section>
     </Layout>
-  );
-};
+  )
+}
 
 export const query = graphql`
   {
     allDatoCmsPersonne(
-      sort: { attach: { nom: ASC } }
-    filter: {actifInactif: {eq: false}, statut: {elemMatch: {nom: {eq: "attaché parlementaire"}}}}
+      sort: {nom: ASC}
+      filter: {
+        actifInactif: {eq: false}
+        statut: {elemMatch: {nom: {eq: "attaché parlementaire"}}}
+      }
     ) {
       edges {
         node {
@@ -114,6 +122,19 @@ export const query = graphql`
           id
           fonctionAttach
           prNom
+          numRoDeTLPhone
+          numRoDeTLPhone2
+          mail
+          mail2
+          facebook
+          instagram
+          linkedin
+          xTwitter
+          tikTok
+          remarquesCommentaires
+          statut {
+            nom
+          }
           attach {
             prNom
             nom
@@ -130,4 +151,4 @@ export const query = graphql`
   }
 `;
 
-export default Parlement;
+export default Attaches;
