@@ -16,7 +16,7 @@ const FederationPage = ({ data }) => {
   return (
     <Layout>
       <div className="max-w-7xl mx-auto px-4 py-8">
-        <div className="bg-white rounded-lg shadow-xl overflow-hidden">
+        <div className="bg-white">
           {/* Header avec photo et infos principales */}
           <div className="md:flex">
             {/* Section gauche - Photo et contacts */}
@@ -28,13 +28,13 @@ const FederationPage = ({ data }) => {
                     <GatsbyImage
                       image={personne.photo.gatsbyImageData}
                       alt={personne.photo.alt || `${personne.prNom} ${personne.nom}`}
-                      className="w-48 h-48 rounded-full object-cover shadow-lg"
+                      className="w-48 h-48 rounded-full object-cover"
                       imgStyle={{ objectFit: "cover" }}
                     />
                   )}
                   {/* Logo du parti en overlay */}
                   {personne.parti?.logo && (
-                    <div className="absolute -bottom-2 -right-2 bg-white rounded-full p-2 shadow-md">
+                    <div className="absolute -bottom-2 -right-2 bg-white rounded-full p-2">
                       <GatsbyImage
                         image={personne.parti.logo.gatsbyImageData}
                         alt={`${personne.parti.nom} logo`}
@@ -153,7 +153,7 @@ const FederationPage = ({ data }) => {
                     <h3 className="text-xl font-bold text-gray-900 mb-3 border-b-2 border-red-600 pb-2">
                       Remarques / Commentaires
                     </h3>
-                    <div className="bg-gray-50 rounded-lg p-4">
+                    <div className="bg-gray-50 p-4">
                       <p className="text-gray-700 leading-relaxed">{personne.remarquesCommentaires}</p>
                     </div>
                   </div>
@@ -161,7 +161,7 @@ const FederationPage = ({ data }) => {
 
                 {/* Remarque coordonnées */}
                 {personne.remarqueCoordonnEs && (
-                  <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+                  <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4">
                     <p className="text-yellow-800 italic">{personne.remarqueCoordonnEs}</p>
                   </div>
                 )}
@@ -172,14 +172,14 @@ const FederationPage = ({ data }) => {
 
         {/* Section attachés */}
         {data.allDatoCmsPersonne.nodes.length > 0 && (
-          <div className="mt-8 bg-white rounded-lg shadow-xl p-8">
+          <div className="mt-8 bg-white p-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-6">Attachés parlementaires</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {data.allDatoCmsPersonne.nodes.map((attachedPerson) => (
                 <Link
                   key={attachedPerson.id}
                   to={`/attaches/${attachedPerson.url}`}
-                  className="group bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors duration-200"
+                  className="group bg-gray-50 p-6 hover:bg-gray-100 transition-colors duration-200"
                 >
                   <div className="flex items-center space-x-4">
                     <GatsbyImage
@@ -188,11 +188,11 @@ const FederationPage = ({ data }) => {
                       className="w-16 h-16 rounded-full object-cover"
                     />
                     <div className="flex-1">
-                      <h3 className="font-semibold text-gray-900 group-hover:text-red-600 transition-colors">
+                      <h3 className="font-medium text-sm text-gray-900 group-hover:text-red-600 transition-colors">
                         {attachedPerson.prNom} {attachedPerson.nom}
                       </h3>
                       {attachedPerson.fonctionAttach && (
-                        <p className="text-sm text-gray-600 mt-1">{attachedPerson.fonctionAttach}</p>
+                        <p className="text-xs text-gray-600 mt-1">{attachedPerson.fonctionAttach}</p>
                       )}
                     </div>
                   </div>
