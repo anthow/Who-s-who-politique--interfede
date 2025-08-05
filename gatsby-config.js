@@ -48,14 +48,15 @@ module.exports = {
       },
     },
 
-    {
-      resolve: `gatsby-plugin-algolia`,
-      options: {
-        appId: process.env.GATSBY_ALGOLIA_APP_ID,
-        apiKey: process.env.GATSBY_ALGOLIA_ADMIN_API_KEY,
-        queries: require("./src/utils/algolia-queries"),
-        chunkSize: 10000,
-      },
-    },
+    // Configuration Algolia temporairement désactivée
+    // {
+    //   resolve: `gatsby-plugin-algolia`,
+    //   options: {
+    //     appId: process.env.GATSBY_ALGOLIA_APP_ID,
+    //     apiKey: process.env.GATSBY_ALGOLIA_ADMIN_API_KEY,
+    //     queries: require("./src/utils/algolia-queries"),
+    //     chunkSize: 10000,
+    //   },
+    // },
   ],
 }
