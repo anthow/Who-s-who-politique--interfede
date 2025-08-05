@@ -1,184 +1,232 @@
 import * as React from "react";
-import { graphql } from "gatsby";
+import { graphql, Link } from "gatsby";
 import Layout from "../components/layout";
 import { GatsbyImage } from "gatsby-plugin-image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebook, faInstagram, faLinkedin, faTwitter, faTiktok } from "@fortawesome/free-brands-svg-icons"; // Icônes de marques
-import { faPhone, faEnvelope } from "@fortawesome/free-solid-svg-icons"; // Icônes solides (Téléphone, Email)
+import { faFacebook, faInstagram, faLinkedin, faTwitter, faTiktok } from "@fortawesome/free-brands-svg-icons";
+import { faPhone, faEnvelope, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
-const GouvernementPage = ({ data }) => {
-  if (!data || !data.datoCmsPersonne) {
+const AttachePage = ({ data }) => {
+  if (!data || !data.datoCmsPersonne || !data.allDatoCmsPersonne.nodes) {
     return <Layout>Data is not available</Layout>;
   }
 
-  const {
-    photo,
-    facebook,
-    instagram,
-    linkedin,
-    xTwitter,
-    tikTok,
-    numRoDeTLPhone,
-    numRoDeTLPhone2,
-    mail,
-
-    prNom,
-    nom,
-    parti,
-    statut,
-    attach,
-    fonctionAttach,
-    remarquesCommentaires,
-    mail2
-  } = data.datoCmsPersonne;
+  const personne = data.datoCmsPersonne;
 
   return (
     <Layout>
-            <div style={{ width: "80%", margin: "0 auto" }}>
-            <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "40px", marginTop: "40px" }}>
-            {/* Section gauche */}
-            <article style={{ display: "flex", gap: "40px" }}>
-            <section style={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-            <figure  style={{
-                marginBottom: "20px",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                width: "100%",
-                height: "auto",
-                overflow: "hidden"
-              }}>
-              {photo && (
-                <GatsbyImage
-                  image={photo.gatsbyImageData}
-                  alt={`${prNom} ${nom}`}
-                  style={{  objectFit: "contain" }}
-                  imgStyle={{ objectFit: "contain",  height: "auto" }}
-                />
-              )}
-            </figure>
-           <div style={{ display: "flex", gap: "10px", flexWrap: "wrap", marginBottom: "20px" }}>
-                           {facebook && (
-                             <a href={facebook}>
-                               <FontAwesomeIcon icon={faFacebook} size="1x" aria-label="Facebook" />
-                             </a>
-                           )}
-                           {instagram && (
-                             <a href={instagram}>
-                               <FontAwesomeIcon icon={faInstagram} size="1x" aria-label="Instagram" />
-                             </a>
-                           )}
-                           {linkedin && (
-                             <a href={linkedin}>
-                               <FontAwesomeIcon icon={faLinkedin} size="1x" aria-label="LinkedIn" />
-                             </a>
-                           )}
-                           {xTwitter && (
-                             <a href={xTwitter}>
-                               <FontAwesomeIcon icon={faTwitter} size="1x" aria-label="Twitter" />
-                             </a>
-                           )}
-                           {tikTok && (
-                             <a href={tikTok}>
-                               <FontAwesomeIcon icon={faTiktok} size="1x" aria-label="TikTok" />
-                             </a>
-                           )}
-                         </div>
-                         {(numRoDeTLPhone || numRoDeTLPhone2) && (
-                           <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
-                             <FontAwesomeIcon icon={faPhone} size="1x" aria-label="Téléphone" />
-                             <div style={{ display: "flex", flexDirection: "column", gap: "5px" }}>
-                               {numRoDeTLPhone && <span>{numRoDeTLPhone}</span>}
-                               {numRoDeTLPhone2 && <span>{numRoDeTLPhone2}</span>}
-                             </div>
-                           </div>
-                         )}
-               {(mail || mail2) && (
-  <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "20px", marginTop: "10px" }}>
-    {/* Colonne pour l'icône */}
-    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-      <FontAwesomeIcon icon={faEnvelope} size="1x" aria-label="Email" />
-    </div>
-
-    {/* Colonne pour les adresses */}
-    <div style={{ display: "flex", flexDirection: "column", gap: "10px" }}>
-      {mail && <p>{mail}</p>}
-      {mail2 && <p>{mail2}</p>}
-    </div>
-  </div>
-)}
-
-          </section>
-                      {/* Section droite */}
-          <article style={{ display: "flex", flexDirection: "column", gap: "5px", minWidth: "100%" }}>
-          <section style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-          <h1 style={{ fontSize: "24px", fontWeight: "bold" }}>
-          {prNom} {nom}
-              </h1>
-              <figure>
-                {parti && parti.logo && (
-                  <GatsbyImage
-                    image={parti.logo.gatsbyImageData}
-                    alt={`${parti.nom} logo`}
-                    style={{ width: "60px", height: "auto" }}
+      <div className="max-w-7xl mx-auto px-4 py-8">
+        <div className="bg-white rounded-lg shadow-xl overflow-hidden">
+          {/* Header avec photo et infos principales */}
+          <div className="md:flex">
+            {/* Section gauche - Photo et contacts */}
+            <div className="md:w-1/3 bg-gray-50 p-8">
+              <div className="flex flex-col items-center space-y-6">
+                {/* Photo */}
+                <div className="relative">
+                  {personne.photo && (
+                    <GatsbyImage
+                      image={personne.photo.gatsbyImageData}
+                      alt={personne.photo.alt || `${personne.prNom} ${personne.nom}`}
+                      className="w-48 h-48 rounded-full object-cover shadow-lg"
+                      imgStyle={{ objectFit: "cover" }}
                     />
+                  )}
+                  {/* Logo du parti en overlay */}
+                  {personne.parti?.logo && (
+                    <div className="absolute -bottom-2 -right-2 bg-white rounded-full p-2 shadow-md">
+                      <GatsbyImage
+                        image={personne.parti.logo.gatsbyImageData}
+                        alt={`${personne.parti.nom} logo`}
+                        className="w-12 h-12"
+                      />
+                    </div>
+                  )}
+                </div>
+
+                {/* Nom et parti */}
+                <div className="text-center">
+                  <h1 className="text-2xl font-bold text-gray-900 mb-2">
+                    {personne.prNom} {personne.nom}
+                  </h1>
+                  {personne.parti?.nom && (
+                    <p className="text-lg text-gray-600">{personne.parti.nom}</p>
+                  )}
+                </div>
+
+                {/* Réseaux sociaux */}
+                <div className="flex space-x-4">
+                  {personne.facebook && (
+                    <a href={personne.facebook} className="text-blue-600 hover:text-blue-800 transition-colors">
+                      <FontAwesomeIcon icon={faFacebook} size="lg" />
+                    </a>
+                  )}
+                  {personne.instagram && (
+                    <a href={personne.instagram} className="text-pink-600 hover:text-pink-800 transition-colors">
+                      <FontAwesomeIcon icon={faInstagram} size="lg" />
+                    </a>
+                  )}
+                  {personne.linkedin && (
+                    <a href={personne.linkedin} className="text-blue-700 hover:text-blue-900 transition-colors">
+                      <FontAwesomeIcon icon={faLinkedin} size="lg" />
+                    </a>
+                  )}
+                  {personne.xTwitter && (
+                    <a href={personne.xTwitter} className="text-gray-800 hover:text-gray-600 transition-colors">
+                      <FontAwesomeIcon icon={faTwitter} size="lg" />
+                    </a>
+                  )}
+                  {personne.tikTok && (
+                    <a href={personne.tikTok} className="text-black hover:text-gray-700 transition-colors">
+                      <FontAwesomeIcon icon={faTiktok} size="lg" />
+                    </a>
+                  )}
+                </div>
+
+                {/* Contact info */}
+                <div className="w-full space-y-4">
+                  {/* Téléphones */}
+                  {(personne.numRoDeTLPhone || personne.numRoDeTLPhone2) && (
+                    <div className="flex items-center space-x-3 text-gray-700">
+                      <FontAwesomeIcon icon={faPhone} className="text-gray-500" />
+                      <div className="flex flex-col">
+                        {personne.numRoDeTLPhone && <span>{personne.numRoDeTLPhone}</span>}
+                        {personne.numRoDeTLPhone2 && <span>{personne.numRoDeTLPhone2}</span>}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Emails */}
+                  {(personne.mail || personne.mail2) && (
+                    <div className="flex items-start space-x-3 text-gray-700">
+                      <FontAwesomeIcon icon={faEnvelope} className="text-gray-500 mt-1" />
+                      <div className="flex flex-col space-y-1">
+                        {personne.mail && <span className="break-all">{personne.mail}</span>}
+                        {personne.mail2 && <span className="break-all">{personne.mail2}</span>}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Adresse */}
+                  {personne.adressePostale && (
+                    <div className="flex items-start space-x-3 text-gray-700">
+                      <FontAwesomeIcon icon={faMapMarkerAlt} className="text-gray-500 mt-1" />
+                      <div>
+                        <p className="font-medium">Adresse professionnelle :</p>
+                        <p className="text-sm">{personne.adressePostale}</p>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            {/* Section droite - Informations détaillées */}
+            <div className="md:w-2/3 p-8">
+              <div className="space-y-6">
+                {/* Statut */}
+                {personne.statut?.nom && (
+                  <div>
+                    <h2 className="text-xl font-semibold text-gray-900 mb-2">Statut</h2>
+                    <p className="text-lg text-gray-700">{personne.statut.nom}</p>
+                  </div>
                 )}
-              </figure>
-            </section>
-            <h2 style={{ fontSize: "20px", width: "auto", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}>
-            {statut && statut.nom}
-            </h2>
 
-            {attach && attach.length > 0 && (
-              <section style={{ display: "flex", flexWrap: "wrap", gap: "10px" }}>
-                {attach.map((attache, index) => (
-                  <p
-                    key={index}
-                    style={{ padding: "10px", borderRadius: "5px", backgroundColor: "black", color: "white", fontWeight: "bold", whiteSpace: "nowrap", overflow: "hidden", textOverflow: "ellipsis" }}                  >
-                    {attache.prNom} {attache.nom}
-                  </p>
-                ))}
-                <p
-                  style={{
-                    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    padding: "10px",
-    borderRadius: "5px",
-    backgroundColor: "#1e90ff",
-    color: "white",
-    fontWeight: "bold",
-    whiteSpace: "nowrap",
-    overflow: "hidden",
-    textOverflow: "ellipsis"
-                  }}
+                {/* Fonction attaché */}
+                {personne.fonctionAttach && (
+                  <div>
+                    <h2 className="text-xl font-semibold text-gray-900 mb-2">Fonction</h2>
+                    <div className="bg-blue-50 border-l-4 border-blue-400 p-4 rounded">
+                      <p className="text-blue-800 font-medium">{personne.fonctionAttach}</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Attachés */}
+                {personne.attach && personne.attach.length > 0 && (
+                  <div>
+                    <h2 className="text-xl font-semibold text-gray-900 mb-2">Attachés</h2>
+                    <div className="space-y-2">
+                      {personne.attach.map((attaché, index) => (
+                        <div key={index} className="bg-gray-50 rounded-lg p-3">
+                          <p className="font-medium text-gray-900">
+                            {attaché.prNom} {attaché.nom}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Badges d'information */}
+                <div className="flex flex-wrap gap-3">
+                  {personne.circonscription?.nom && (
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-blue-600 text-white">
+                      Circonscription : {personne.circonscription.nom}
+                    </span>
+                  )}
+
+                  {personne.effectifOuSupplAnt?.nom && (
+                    <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-600 text-white">
+                      Membre {personne.effectifOuSupplAnt.nom}
+                    </span>
+                  )}
+                </div>
+
+                {/* Remarques */}
+                {personne.remarquesCommentaires && (
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 border-b-2 border-red-600 pb-2">
+                      Remarques / Commentaires
+                    </h3>
+                    <div className="bg-gray-50 rounded-lg p-4">
+                      <p className="text-gray-700 leading-relaxed">{personne.remarquesCommentaires}</p>
+                    </div>
+                  </div>
+                )}
+
+                {/* Remarque coordonnées */}
+                {personne.remarqueCoordonnEs && (
+                  <div className="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded">
+                    <p className="text-yellow-800 italic">{personne.remarqueCoordonnEs}</p>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Section attachés */}
+        {data.allDatoCmsPersonne.nodes.length > 0 && (
+          <div className="mt-8 bg-white rounded-lg shadow-xl p-8">
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">Attachés parlementaires</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {data.allDatoCmsPersonne.nodes.map((attachedPerson) => (
+                <Link
+                  key={attachedPerson.id}
+                  to={`/attaches/${attachedPerson.url}`}
+                  className="group bg-gray-50 rounded-lg p-6 hover:bg-gray-100 transition-colors duration-200"
                 >
-                  {fonctionAttach}
-                </p>
-              </section>
-            )}
-                                          <div style={{ marginTop: "50px" }} >
-                                          <h3 style={{
-                fontSize: "22px",
-                fontWeight: "bold",
-                color: "#a40044",
-                borderBottom: "1px solid #a40044",
-                paddingBottom: "5px",
-                marginBottom: "16px",
-                textTransform: "uppercase",
-                letterSpacing: "1px"
-              }}>
-                Remarques / Commentaires
-              </h3>   
-            {remarquesCommentaires && (
-         
-              <p >{remarquesCommentaires}</p>
-            )}
-                          </div>
-
-          </article>
-        </article>
-      </div>
+                  <div className="flex items-center space-x-4">
+                    <GatsbyImage
+                      image={attachedPerson.photo.gatsbyImageData}
+                      alt={attachedPerson.photo.alt}
+                      className="w-16 h-16 rounded-full object-cover"
+                    />
+                    <div className="flex-1">
+                      <h3 className="font-semibold text-gray-900 group-hover:text-red-600 transition-colors">
+                        {attachedPerson.prNom} {attachedPerson.nom}
+                      </h3>
+                      {attachedPerson.fonctionAttach && (
+                        <p className="text-sm text-gray-600 mt-1">{attachedPerson.fonctionAttach}</p>
+                      )}
+                    </div>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </Layout>
   );
@@ -191,6 +239,7 @@ export const query = graphql`
       nom
       photo {
         gatsbyImageData(width: 200)
+        alt
       }
       facebook
       instagram
@@ -208,6 +257,7 @@ export const query = graphql`
         logo {
           gatsbyImageData(width: 50)
         }
+        nom
       }
       statut {
         nom
@@ -218,8 +268,26 @@ export const query = graphql`
         nom
       }
       remarquesCommentaires
+      circonscription {
+        nom
+      }
+      effectifOuSupplAnt {
+        nom
+      }
+    }
+    allDatoCmsPersonne {
+      nodes {
+        id
+        prNom
+        nom
+        photo {
+          gatsbyImageData(width: 100)
+          alt
+        }
+        fonctionAttach
+      }
     }
   }
 `;
 
-export default GouvernementPage;
+export default AttachePage;
