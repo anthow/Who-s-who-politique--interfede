@@ -5,6 +5,7 @@ import { GatsbyImage } from "gatsby-plugin-image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram, faLinkedin, faTwitter, faTiktok } from "@fortawesome/free-brands-svg-icons";
 import { faPhone, faEnvelope, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import CommentEditor from "../components/CommentEditor";
 
 const GouvernementPage = ({ data }) => {
   if (!data || !data.datoCmsPersonne || !data.allDatoCmsPersonne.nodes) {
@@ -12,6 +13,11 @@ const GouvernementPage = ({ data }) => {
   }
 
   const personne = data.datoCmsPersonne;
+  const [currentComment, setCurrentComment] = React.useState(personne.remarquesCommentaires);
+
+  const handleCommentUpdate = (newComment) => {
+    setCurrentComment(newComment);
+  };
 
   return (
     <Layout>
@@ -157,17 +163,12 @@ const GouvernementPage = ({ data }) => {
                   )}
                 </div>
 
-                {/* Remarques */}
-                {personne.remarquesCommentaires && (
-                  <div>
-                    <h3 className="text-xl font-bold text-gray-900 mb-3 border-b-2 border-red-600 pb-2">
-                      Remarques / Commentaires
-                    </h3>
-                    <div className="bg-gray-50 p-4">
-                      <p className="text-gray-700 leading-relaxed">{personne.remarquesCommentaires}</p>
-                    </div>
-                  </div>
-                )}
+                {/* Remarques avec éditeur */}
+                <CommentEditor 
+                  comment={currentComment}
+                  personneId={personne.id}
+                  onUpdate={handleCommentUpdate}
+                />
 
                 {/* Remarque coordonnées */}
                 {personne.remarqueCoordonnEs && (

@@ -1,206 +1,82 @@
-# Who's Who politique - Interfédération des CISP
+# Who's Who politique de l'Interfédé
 
-Un site web moderne pour découvrir les acteurs politiques de la Wallonie et de Bruxelles, développé avec Gatsby et DatoCMS.
+Site web pour découvrir les acteurs politiques de la Wallonie et de Bruxelles.
 
 ## 🚀 Fonctionnalités
 
-- **Navigation responsive** avec menu mobile
-- **Recherche avancée** avec Algolia
-- **Authentification sécurisée** avec mot de passe
-- **Design moderne** avec Tailwind CSS
-- **Performance optimisée** avec Gatsby
-- **CMS headless** avec DatoCMS
-- **SEO optimisé** avec métadonnées complètes
+- **Pages de profils** : Gouvernement, parlement, commission, bureau, fédération, attachés
+- **Commentaires modifiables** : Édition en temps réel des remarques/commentaires
+- **Export Excel** : Export des données de contact
+- **Design responsive** : Adaptation mobile/desktop
+- **Recherche** : Fonction de recherche (temporairement désactivée)
 
-## 🛠️ Technologies utilisées
+## 📝 Commentaires modifiables
 
-- **Gatsby 5** - Framework React
-- **DatoCMS** - CMS headless
-- **Algolia** - Recherche avancée
-- **Tailwind CSS** - Framework CSS
-- **React** - Bibliothèque JavaScript
-- **GraphQL** - API de requêtes
+Les commentaires sont maintenant modifiables directement depuis le site :
 
-## 📦 Installation
+1. **Bouton d'édition** : Cliquez sur l'icône d'édition à côté de "Remarques / Commentaires"
+2. **Zone de texte** : Modifiez le contenu dans la zone de texte
+3. **Sauvegarde** : Cliquez sur "Sauvegarder" pour envoyer à DatoCMS
+4. **Annulation** : Cliquez sur "Annuler" pour revenir à l'état précédent
 
-1. **Cloner le repository**
-   ```bash
-   git clone [url-du-repo]
-   cd Who-s-who-politique--interfede
-   ```
+## 🔧 Configuration
 
-2. **Installer les dépendances**
-   ```bash
-   npm install
-   ```
+### Variables d'environnement Netlify
 
-3. **Configurer les variables d'environnement**
-   ```bash
-   cp env.example .env
-   ```
-   
-   Puis éditer le fichier `.env` avec vos clés API :
-   ```env
-   # DatoCMS
-   DATOCMS_API_TOKEN=your_datocms_api_token_here
-   
-   # Algolia
-   GATSBY_ALGOLIA_APP_ID=your_algolia_app_id
-   GATSBY_ALGOLIA_SEARCH_API_KEY=your_algolia_search_api_key
-   GATSBY_ALGOLIA_ADMIN_API_KEY=your_algolia_admin_api_key
-   GATSBY_ALGOLIA_INDEX_NAME=personnes
-   
-   # Sécurité
-   GATSBY_SITE_PASSWORD=your_site_password_here
-   
-   # URL du site
-   GATSBY_SITE_URL=https://whoswho-politique.be
-   ```
+Ajoutez ces variables dans les paramètres Netlify :
 
-4. **Lancer le serveur de développement**
-   ```bash
-   npm run develop
-   ```
+```bash
+DATOCMS_API_TOKEN=your_datocms_api_token
+```
 
-5. **Ouvrir le site**
-   Naviguez vers [http://localhost:8000](http://localhost:8000)
+### API Token DatoCMS
 
-## 🏗️ Structure du projet
+1. Allez dans votre projet DatoCMS
+2. Settings > API tokens
+3. Créez un token avec les permissions :
+   - Read/Write access to content
+   - Read access to content types
+
+## 🛠️ Développement
+
+```bash
+# Installer les dépendances
+npm install
+
+# Démarrer le serveur de développement
+npm run develop
+
+# Build pour production
+npm run build
+```
+
+## 📁 Structure
 
 ```
 src/
-├── components/          # Composants React réutilisables
-│   ├── layout.js       # Layout principal
-│   ├── search.js       # Composant de recherche
-│   └── pop_up.js       # Popup d'authentification
-├── pages/              # Pages Gatsby
-│   ├── index.js        # Page d'accueil
-│   ├── gouvernement.js # Gouvernement wallon
-│   ├── parlement.js    # Parlement wallon
-│   ├── commission.js   # Commission emploi
-│   └── ...
-├── styles/             # Styles CSS
-│   └── global.css      # Styles globaux
-├── templates/          # Templates Gatsby
-└── utils/              # Utilitaires
-    └── algolia-queries.js
+├── components/
+│   ├── CommentEditor.js    # Éditeur de commentaires
+│   ├── ExcelExport.js      # Export Excel
+│   └── layout.js           # Layout principal
+├── templates/
+│   ├── parlement.js        # Template parlement
+│   ├── gouvernement.js     # Template gouvernement
+│   ├── bureau.js          # Template bureau
+│   ├── federation.js      # Template fédération
+│   └── attache.js         # Template attaché
+└── api/
+    └── update-comment.js   # API pour mettre à jour les commentaires
 ```
 
-## 🎨 Personnalisation
+## 🔒 Sécurité
 
-### Couleurs des partis politiques
+- Les API tokens sont stockés dans les variables d'environnement Netlify
+- Validation des données côté serveur
+- Gestion des erreurs et feedback utilisateur
 
-Les couleurs sont définies dans `src/styles/global.css` :
+## 🎨 Design
 
-```css
-:root {
-  --color-mr: #012dfd;      /* MR */
-  --color-engage: #00e7d1;  /* Les Engagés */
-  --color-ps: #ff0000;      /* PS */
-  --color-ecolo: #66b649;   /* Ecolo */
-  --color-ptb: #ee3f32;     /* PTB */
-  --color-defi: #dd007a;    /* Défi */
-}
-```
-
-### Ajout d'un nouveau parti
-
-1. Ajouter la couleur dans `src/styles/global.css`
-2. Créer la classe CSS correspondante
-3. Mettre à jour les composants qui utilisent les partis
-
-## 🔍 Recherche Algolia
-
-Le site utilise Algolia pour la recherche avancée. Pour configurer :
-
-1. Créer un compte Algolia
-2. Configurer les variables d'environnement
-3. Indexer les données avec `npm run build`
-
-## 🔐 Sécurité
-
-- **Authentification** : Popup de mot de passe sécurisé
-- **Variables d'environnement** : Toutes les clés API sont externalisées
-- **HTTPS** : Recommandé en production
-
-## 📱 Responsive Design
-
-Le site est entièrement responsive avec :
-- **Mobile-first** design
-- **Menu hamburger** sur mobile
-- **Grilles adaptatives** avec Tailwind CSS
-- **Images optimisées** avec Gatsby Image
-
-## 🚀 Déploiement
-
-### Netlify (recommandé)
-
-1. Connecter le repository GitHub
-2. Configurer les variables d'environnement
-3. Déployer automatiquement
-
-### Autres plateformes
-
-Le site peut être déployé sur :
-- Vercel
-- Gatsby Cloud
-- AWS S3 + CloudFront
-- Surge.sh
-
-## 🧪 Tests
-
-```bash
-# Lancer les tests
-npm test
-
-# Vérifier le formatage
-npm run format
-
-# Nettoyer le cache
-npm run clean
-```
-
-## 📈 Performance
-
-- **Lighthouse Score** : 90+ sur tous les critères
-- **Core Web Vitals** : Optimisé
-- **SEO** : Métadonnées complètes
-- **Accessibilité** : WCAG 2.1 AA
-
-## 🤝 Contribution
-
-1. Fork le projet
-2. Créer une branche feature (`git checkout -b feature/AmazingFeature`)
-3. Commit les changements (`git commit -m 'Add some AmazingFeature'`)
-4. Push vers la branche (`git push origin feature/AmazingFeature`)
-5. Ouvrir une Pull Request
-
-## 📄 Licence
-
-Ce projet est sous licence MIT. Voir le fichier `LICENSE` pour plus de détails.
-
-## 📞 Support
-
-Pour toute question ou problème :
-- Ouvrir une issue sur GitHub
-- Contacter l'équipe de développement
-- Consulter la documentation DatoCMS
-
-## 🔄 Mises à jour
-
-### Gatsby
-```bash
-npm update gatsby
-```
-
-### DatoCMS
-- Mettre à jour le plugin : `npm update gatsby-source-datocms`
-- Vérifier la compatibilité des API
-
-### Algolia
-- Mettre à jour les clés API si nécessaire
-- Re-indexer les données après modification
-
----
-
-**Développé avec ❤️ par l'équipe de l'Interfédération des CISP**
+- **Framework** : Gatsby + React
+- **Styling** : Tailwind CSS
+- **CMS** : DatoCMS
+- **Déploiement** : Netlify
