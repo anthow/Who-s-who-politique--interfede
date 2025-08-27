@@ -6,25 +6,12 @@ import { Link } from "gatsby"
 import ExcelExport from "../components/ExcelExport"
 
 const Commission = ({ data }) => {
-  const mrMembers = data.allDatoCmsPersonne.edges.filter(
-    ({ node }) => node.parti.nom === "MR"
-  )
-
-  const lesEngagesMembers = data.allDatoCmsPersonne.edges.filter(
-    ({ node }) => node.parti.nom === "Les engagés"
-  )
-
-  const psMembers = data.allDatoCmsPersonne.edges.filter(
-    ({ node }) => node.parti.nom === "PS"
-  )
-
-  const ptbMembers = data.allDatoCmsPersonne.edges.filter(
-    ({ node }) => node.parti.nom === "PTB"
-  )
-
-  const ecoloMembers = data.allDatoCmsPersonne.edges.filter(
-    ({ node }) => node.parti.nom === "Ecolo"
-  )
+  // Récupérer directement les données filtrées par parti
+  const mrMembers = data.mrMembers.edges || []
+  const lesEngagesMembers = data.lesEngagesMembers.edges || []
+  const psMembers = data.psMembers.edges || []
+  const ptbMembers = data.ptbMembers.edges || []
+  const ecoloMembers = data.ecoloMembers.edges || []
 
   const renderMembers = (members, partyClass, partyName) => (
     <>
@@ -48,15 +35,19 @@ const Commission = ({ data }) => {
             className="flex flex-col bg-white shadow-lg rounded-lg p-4 hover:shadow-xl transition-shadow duration-300"
           >
             <figure className="m-auto">
-              <GatsbyImage
-                image={node.photo.gatsbyImageData}
-                alt={node.photo.alt}
-                className="rounded-full mb-4"
-              />
+              {node.photo && node.photo.gatsbyImageData ? (
+                <GatsbyImage
+                  image={node.photo.gatsbyImageData}
+                  alt={node.photo.alt || "Photo"}
+                  className="rounded-full mb-4"
+                />
+              ) : (
+                <div className="w-24 h-24 rounded-full bg-gray-200 mb-4" />
+              )}
             </figure>
             <div className="flex flex-col items-center text-center">
               <h3 className="text-lg font-semibold">
-                {node.prNom} {node.nom}
+                {node.prNom || "Prénom"} {node.nom || "Nom"}
               </h3>
             </div>
           </Link>
@@ -65,13 +56,22 @@ const Commission = ({ data }) => {
     </>
   )
 
+  // Combiner tous les membres pour l'export global
+  const allMembers = [
+    ...mrMembers,
+    ...lesEngagesMembers,
+    ...psMembers,
+    ...ptbMembers,
+    ...ecoloMembers
+  ]
+
   return (
     <Layout className="">
       <section className="w-10/12 flex flex-col gap-20 m-auto py-10">
         {/* Bouton d'export pour toute la page */}
         <div className="flex justify-end mb-6">
           <ExcelExport 
-            data={data.allDatoCmsPersonne.edges} 
+            data={allMembers} 
             filename="commission_complet" 
           />
         </div>
@@ -88,12 +88,14 @@ const Commission = ({ data }) => {
 
 export const query = graphql`
   {
-    allDatoCmsPersonne(
+    # MR - Commission emploi
+    mrMembers: allDatoCmsPersonne(
       sort: {nom: ASC}
       filter: {
         commision: { commision: { eq: "COMMISSION DE L'ÉCONOMIE, DE L'EMPLOI ET DE LA FORMATION" } }
         actifInactif: { eq: false }
         statut: { elemMatch: { nom: { eq: "Député wallon" } } }
+        parti: { nom: { eq: "MR" } }
       }
     ) {
       edges {
@@ -106,25 +108,102 @@ export const query = graphql`
           nom
           id
           prNom
-          numRoDeTLPhone
-          numRoDeTLPhone2
-          mail
-          mail2
-          facebook
-          instagram
-          linkedin
-          xTwitter
-          tikTok
-          remarquesCommentaires
-          statut {
-            nom
+        }
+      }
+    }
+
+    # Les Engagés - Commission emploi
+    lesEngagesMembers: allDatoCmsPersonne(
+      sort: {nom: ASC}
+      filter: {
+        commision: { commision: { eq: "COMMISSION DE L'ÉCONOMIE, DE L'EMPLOI ET DE LA FORMATION" } }
+        actifInactif: { eq: false }
+        statut: { elemMatch: { nom: { eq: "Député wallon" } } }
+        parti: { nom: { eq: "Les engagés" } }
+      }
+    ) {
+      edges {
+        node {
+          photo {
+            alt
+            gatsbyImageData(height: 100, width: 100)
           }
-          parti {
-            nom
-            logo {
-              gatsbyImageData(height: 20)
-            }
+          url
+          nom
+          id
+          prNom
+        }
+      }
+    }
+
+    # PS - Commission emploi
+    psMembers: allDatoCmsPersonne(
+      sort: {nom: ASC}
+      filter: {
+        commision: { commision: { eq: "COMMISSION DE L'ÉCONOMIE, DE L'EMPLOI ET DE LA FORMATION" } }
+        actifInactif: { eq: false }
+        statut: { elemMatch: { nom: { eq: "Député wallon" } } }
+        parti: { nom: { eq: "PS" } }
+      }
+    ) {
+      edges {
+        node {
+          photo {
+            alt
+            gatsbyImageData(height: 100, width: 100)
           }
+          url
+          nom
+          id
+          prNom
+        }
+      }
+    }
+
+    # PTB - Commission emploi
+    ptbMembers: allDatoCmsPersonne(
+      sort: {nom: ASC}
+      filter: {
+        commision: { commision: { eq: "COMMISSION DE L'ÉCONOMIE, DE L'EMPLOI ET DE LA FORMATION" } }
+        actifInactif: { eq: false }
+        statut: { elemMatch: { nom: { eq: "Député wallon" } } }
+        parti: { nom: { eq: "PTB" } }
+      }
+    ) {
+      edges {
+        node {
+          photo {
+            alt
+            gatsbyImageData(height: 100, width: 100)
+          }
+          url
+          nom
+          id
+          prNom
+        }
+      }
+    }
+
+    # Ecolo - Commission emploi
+    ecoloMembers: allDatoCmsPersonne(
+      sort: {nom: ASC}
+      filter: {
+        commision: { commision: { eq: "COMMISSION DE L'ÉCONOMIE, DE L'EMPLOI ET DE LA FORMATION" } }
+        actifInactif: { eq: false }
+        statut: { elemMatch: { nom: { eq: "Député wallon" } } }
+        parti: { nom: { eq: "Ecolo" } }
+      }
+    ) {
+      edges {
+        node {
+          photo {
+            alt
+            gatsbyImageData(height: 100, width: 100)
+          }
+          url
+          nom
+          id
+          prNom
         }
       }
     }

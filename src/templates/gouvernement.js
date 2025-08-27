@@ -8,12 +8,20 @@ import { faPhone, faEnvelope, faMapMarkerAlt } from "@fortawesome/free-solid-svg
 import CommentEditor from "../components/CommentEditor";
 
 const GouvernementPage = ({ data }) => {
+  const [currentComment, setCurrentComment] = React.useState("");
+  
   if (!data || !data.datoCmsPersonne || !data.allDatoCmsPersonne.nodes) {
     return <Layout>Data is not available</Layout>;
   }
 
   const personne = data.datoCmsPersonne;
-  const [currentComment, setCurrentComment] = React.useState(personne.remarquesCommentaires);
+  
+  // Mettre à jour le commentaire quand les données sont disponibles
+  React.useEffect(() => {
+    if (personne.remarquesCommentaires) {
+      setCurrentComment(personne.remarquesCommentaires);
+    }
+  }, [personne.remarquesCommentaires]);
 
   const handleCommentUpdate = (newComment) => {
     setCurrentComment(newComment);

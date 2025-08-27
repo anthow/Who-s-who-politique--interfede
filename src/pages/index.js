@@ -35,6 +35,11 @@ const Section = ({ link, imageSrc, title }) => (
 const IndexPage = () => {
   const sections = [
     {
+      link: "attaches-jeholet",
+      imageSrc: "https://res.cloudinary.com/docshhbla/image/upload/c_fill,w_250,h_250/v1720088385/Who%27s%20Who%20politique/parlement_shutterstock_ok_libre_de_droit_bkzv7a.jpg",
+      title: "Cabinet Jeholet"
+    },
+    {
       link: "gouvernement",
       imageSrc: "https://res.cloudinary.com/docshhbla/image/upload/c_fill,w_250,h_250,g_auto/v1720088385/Who%27s%20Who%20politique/pspw-Parlement_Wallon_ixs6kw.jpg",
       title: "Le gouvernement wallon"

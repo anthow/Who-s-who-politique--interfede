@@ -6,11 +6,6 @@ import { Link } from "gatsby";
 import ExcelExport from "../components/ExcelExport";
 
 const Attaches = ({ data }) => {
-  // Fonction pour filtrer les attachés Jeholet
-  const jeholetMembers = data.allDatoCmsPersonne.edges.filter(
-    ({ node }) => node.attach && node.attach.some(attaché => attaché.nom === "JEHOLET")
-  )
-
   // Fonction pour filtrer par parti
   const filterByParty = (partyName) =>
     data.allDatoCmsPersonne.edges.filter(
@@ -89,9 +84,7 @@ const Attaches = ({ data }) => {
           />
         </div>
         
-        {/* Jeholet en premier */}
-        {jeholetMembers.length > 0 && renderMembers(jeholetMembers, "bg-blue-600", "Attachés Jeholet")}
-        {/* Puis l'ordre des partis standard */}
+        {/* Affichage normal par parti */}
         {mrMembers.length > 0 && renderMembers(mrMembers, "fondMR", "MR")}
         {lesEngagesMembers.length > 0 && renderMembers(lesEngagesMembers, "fondengage", "Engagés")}
         {psMembers.length > 0 && renderMembers(psMembers, "fondPS", "PS")}
@@ -122,19 +115,6 @@ export const query = graphql`
           id
           fonctionAttach
           prNom
-          numRoDeTLPhone
-          numRoDeTLPhone2
-          mail
-          mail2
-          facebook
-          instagram
-          linkedin
-          xTwitter
-          tikTok
-          remarquesCommentaires
-          statut {
-            nom
-          }
           attach {
             prNom
             nom
@@ -144,6 +124,9 @@ export const query = graphql`
             logo {
               gatsbyImageData(height: 20)
             }
+          }
+          celluleCabinet {
+            nom
           }
         }
       }

@@ -57,14 +57,15 @@ const Layout = ({ children }) => {
             
             {/* Navigation desktop */}
             <nav className="hidden md:block">
-              <ul className="flex gap-4 items-center text-white text-sm whitespace-nowrap">
+              <ul className="flex flex-wrap gap-4 items-center text-white text-sm">
+                <li><Link to="/attaches-jeholet" className="hover:text-gray-200 transition-colors duration-300">Cabinet Jeholet</Link></li>
                 <li><Link to="/gouvernement" className="hover:text-gray-200 transition-colors duration-300">Gouvernement wallon</Link></li>
                 <li><Link to="/parlement" className="hover:text-gray-200 transition-colors duration-300">Parlement wallon</Link></li>
                 <li><Link to="/commission" className="hover:text-gray-200 transition-colors duration-300">Commission emploi</Link></li>
                 <li><Link to="/attaches" className="hover:text-gray-200 transition-colors duration-300">Attachés parlementaires</Link></li>
                 <li><Link to="/bureau" className="hover:text-gray-200 transition-colors duration-300">Bureau de parti</Link></li>
                 <li><Link to="/federation" className="hover:text-gray-200 transition-colors duration-300">Fédération WB</Link></li>
-                <li>
+                <li className="ml-auto">
                   <a 
                     href="https://tally.so/r/wdK1Mo" 
                     target="_blank" 
@@ -82,6 +83,7 @@ const Layout = ({ children }) => {
           {isMenuOpen && (
             <nav className="md:hidden mt-4">
               <ul className="flex flex-col gap-3 text-white text-sm">
+                <li><Link to="/attaches-jeholet" className="block py-2 hover:text-gray-200 transition-colors duration-300" onClick={closeMenu}>Cabinet Jeholet</Link></li>
                 <li><Link to="/gouvernement" className="block py-2 hover:text-gray-200 transition-colors duration-300" onClick={closeMenu}>Gouvernement wallon</Link></li>
                 <li><Link to="/parlement" className="block py-2 hover:text-gray-200 transition-colors duration-300" onClick={closeMenu}>Parlement wallon</Link></li>
                 <li><Link to="/commission" className="block py-2 hover:text-gray-200 transition-colors duration-300" onClick={closeMenu}>Commission emploi</Link></li>
