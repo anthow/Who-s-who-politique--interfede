@@ -5,9 +5,11 @@ import { GatsbyImage } from "gatsby-plugin-image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram, faLinkedin, faTwitter, faTiktok } from "@fortawesome/free-brands-svg-icons";
 import { faPhone, faEnvelope, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
+import CommentModule from "../components/CommentModule";
+
 
 const AttachePage = ({ data }) => {
-  if (!data || !data.datoCmsPersonne || !data.allDatoCmsPersonne.nodes) {
+  if (!data || !data.datoCmsPersonne) {
     return <Layout>Data is not available</Layout>;
   }
 
@@ -191,42 +193,15 @@ const AttachePage = ({ data }) => {
                     <p className="text-yellow-800 italic">{personne.remarqueCoordonnEs}</p>
                   </div>
                 )}
+
+                {/* Module de commentaires */}
+                <CommentModule personneId={personne.id} />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Section attachés */}
-        {data.allDatoCmsPersonne.nodes.length > 0 && (
-          <div className="mt-8 bg-white p-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Attachés parlementaires</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {data.allDatoCmsPersonne.nodes.map((attachedPerson) => (
-                <Link
-                  key={attachedPerson.id}
-                  to={`/attaches/${attachedPerson.url}`}
-                  className="group bg-gray-50 p-6 hover:bg-gray-100 transition-colors duration-200"
-                >
-                  <div className="flex items-center space-x-4">
-                    <GatsbyImage
-                      image={attachedPerson.photo.gatsbyImageData}
-                      alt={attachedPerson.photo.alt}
-                      className="w-16 h-16 rounded-full object-cover"
-                    />
-                    <div className="flex-1">
-                      <h3 className="font-medium text-sm text-gray-900 group-hover:text-red-600 transition-colors">
-                        {attachedPerson.prNom} {attachedPerson.nom}
-                      </h3>
-                      {attachedPerson.fonctionAttach && (
-                        <p className="text-xs text-gray-600 mt-1">{attachedPerson.fonctionAttach}</p>
-                      )}
-                    </div>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
+
       </div>
     </Layout>
   );
@@ -274,18 +249,7 @@ export const query = graphql`
       effectifOuSupplAnt {
         nom
       }
-    }
-    allDatoCmsPersonne {
-      nodes {
-        id
-        prNom
-        nom
-        photo {
-          gatsbyImageData(width: 100)
-          alt
-        }
-        fonctionAttach
-      }
+
     }
   }
 `;

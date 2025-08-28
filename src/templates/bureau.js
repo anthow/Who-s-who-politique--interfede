@@ -7,7 +7,7 @@ import { faFacebook, faInstagram, faLinkedin, faTwitter, faTiktok } from "@forta
 import { faPhone, faEnvelope, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
 
 const BureauPage = ({ data }) => {
-  if (!data || !data.datoCmsPersonne || !data.allDatoCmsPersonne.nodes) {
+  if (!data || !data.datoCmsPersonne) {
     return <Layout>Data is not available</Layout>;
   }
 

@@ -5,27 +5,14 @@ import { GatsbyImage } from "gatsby-plugin-image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebook, faInstagram, faLinkedin, faTwitter, faTiktok } from "@fortawesome/free-brands-svg-icons";
 import { faPhone, faEnvelope, faMapMarkerAlt } from "@fortawesome/free-solid-svg-icons";
-import CommentEditor from "../components/CommentEditor";
+import CommentModule from "../components/CommentModule";
 
 const ParlementPage = ({ data }) => {
-  const [currentComment, setCurrentComment] = React.useState("");
-  
-  if (!data || !data.datoCmsPersonne || !data.allDatoCmsPersonne.nodes) {
+  if (!data || !data.datoCmsPersonne) {
     return <Layout>Data is not available</Layout>;
   }
 
   const personne = data.datoCmsPersonne;
-  
-  // Mettre à jour le commentaire quand les données sont disponibles
-  React.useEffect(() => {
-    if (personne.remarquesCommentaires) {
-      setCurrentComment(personne.remarquesCommentaires);
-    }
-  }, [personne.remarquesCommentaires]);
-
-  const handleCommentUpdate = (newComment) => {
-    setCurrentComment(newComment);
-  };
 
   return (
     <Layout>
@@ -168,11 +155,22 @@ const ParlementPage = ({ data }) => {
                 </div>
 
                 {/* Remarques avec éditeur */}
-                <CommentEditor 
-                  comment={currentComment}
-                  personneId={personne.id}
-                  onUpdate={handleCommentUpdate}
-                />
+                                {/* Remarques existantes */}
+                {personne.remarquesCommentaires && (
+                  <div>
+                    <h3 className="text-xl font-bold text-gray-900 mb-3 border-b-2 border-red-600 pb-2">
+                      Remarques / Commentaires
+                    </h3>
+                    <div className="bg-gray-50 p-4">
+                      <p className="text-gray-700 leading-relaxed">{personne.remarquesCommentaires}</p>
+                    </div>
+                  </div>
+                )}
+
+
+
+                {/* Module de commentaires */}
+                <CommentModule personneId={personne.id} />
 
                 {/* Remarque coordonnées */}
                 {personne.remarqueCoordonnEs && (
