@@ -9,8 +9,10 @@ const CommentModule = ({ personneId }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
 
-  // Charger les commentaires existants
+  // Charger les commentaires existants depuis DatoCMS
   useEffect(() => {
+    // Pour l'instant, on garde le localStorage en attendant la configuration GraphQL
+    // Plus tard, on pourra charger depuis DatoCMS via GraphQL
     const storedComments = JSON.parse(localStorage.getItem(`comments_${personneId}`) || '[]');
     setComments(storedComments);
   }, [personneId]);
@@ -21,34 +23,54 @@ const CommentModule = ({ personneId }) => {
     setMessage('');
 
     try {
-      const commentData = {
-        id: Date.now().toString(),
-        nomComplet: formData.nomComplet,
-        commentaire: formData.commentaire,
-        personne: personneId,
-        datePublication: new Date().toISOString(),
-        statut: 'published'
-      };
+      // Appel à l'API Netlify pour sauvegarder le commentaire
+      const response = await fetch('/.netlify/functions/add-comment', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nomComplet: formData.nomComplet,
+          commentaire: formData.commentaire,
+          personneId: personneId
+        }),
+      });
 
-      // Stockage en localStorage
-      const updatedComments = [...comments, commentData];
-      localStorage.setItem(`comments_${personneId}`, JSON.stringify(updatedComments));
-      
-      // Mettre à jour l'état local
-      setComments(updatedComments);
+      if (response.ok) {
+        const result = await response.json();
+        
+        if (result.success) {
+          // Ajouter le commentaire à la liste locale
+          const newComment = {
+            id: result.comment.id,
+            nomComplet: result.comment.nomComplet,
+            commentaire: result.comment.commentaire,
+            datePublication: result.comment.datePublication,
+            personne: personneId
+          };
+          
+          const updatedComments = [...comments, newComment];
+          setComments(updatedComments);
+          
+          // Garder aussi en localStorage pour l'instant
+          localStorage.setItem(`comments_${personneId}`, JSON.stringify(updatedComments));
 
-      // Simuler un délai d'API
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      setFormData({ nomComplet: '', commentaire: '' });
-      setMessage('Commentaire ajouté avec succès !');
-      
-      // Effacer le message de succès après 3 secondes
-      setTimeout(() => setMessage(''), 3000);
-      
+          setFormData({ nomComplet: '', commentaire: '' });
+          setMessage('Commentaire ajouté avec succès !');
+          
+          // Effacer le message de succès après 3 secondes
+          setTimeout(() => setMessage(''), 3000);
+        } else {
+          setMessage('Erreur lors de l\'ajout du commentaire');
+        }
+      } else {
+        const errorData = await response.json();
+        console.error('Erreur API:', errorData);
+        setMessage('Erreur lors de l\'ajout du commentaire');
+      }
     } catch (error) {
       console.error('Erreur:', error);
-      setMessage('Erreur lors de l\'ajout du commentaire');
+      setMessage('Erreur de connexion');
     } finally {
       setIsSubmitting(false);
     }

@@ -30,8 +30,8 @@ const Layout = ({ children }) => {
       
       <div className="flex flex-col min-h-screen">
         <header className="w-full p-4 flex flex-col head">
-                               {/* Header desktop avec 3 colonnes */}
-          <div className="hidden md:flex items-center justify-between w-full">
+                     {/* Header desktop avec 3 colonnes */}
+           <div className="hidden md:flex items-center justify-center w-full">
             {/* Colonne gauche : Titre */}
             <div className="flex-shrink-0">
               <Link 
@@ -43,24 +43,24 @@ const Layout = ({ children }) => {
               </Link>
             </div>
             
-            {/* Colonne centre : Menu sur 2 lignes */}
-            <nav className="flex justify-center flex-1">
-              <div className="flex flex-col gap-2 text-center">
-                {/* Première ligne */}
-                <div className="flex gap-6">
-                  <Link to="/attaches-jeholet" className="text-white text-sm hover:text-gray-200 transition-colors duration-300">Cabinet Jeholet</Link>
-                  <Link to="/gouvernement" className="text-white text-sm hover:text-gray-200 transition-colors duration-300">Gouvernement wallon</Link>
-                  <Link to="/parlement" className="text-white text-sm hover:text-gray-200 transition-colors duration-300">Parlement wallon</Link>
-                </div>
-                {/* Deuxième ligne */}
-                <div className="flex gap-6">
-                  <Link to="/commission" className="text-white text-sm hover:text-gray-200 transition-colors duration-300">Commission emploi</Link>
-                  <Link to="/attaches" className="text-white text-sm hover:text-gray-200 transition-colors duration-300">Attachés parlementaires</Link>
-                  <Link to="/bureau" className="text-white text-sm hover:text-gray-200 transition-colors duration-300">Bureau de parti</Link>
-                  <Link to="/federation" className="text-white text-sm hover:text-gray-200 transition-colors duration-300">Fédération WB</Link>
-                </div>
-              </div>
-            </nav>
+                         {/* Colonne centre : Menu sur 2 lignes */}
+             <nav className="flex-1 flex justify-center">
+               <div className="flex flex-col gap-2 text-center">
+                 {/* Première ligne */}
+                 <div className="flex gap-6">
+                   <Link to="/attaches-jeholet" className="text-white text-sm hover:text-gray-200 transition-colors duration-300">Cabinet Jeholet</Link>
+                   <Link to="/gouvernement" className="text-white text-sm hover:text-gray-200 transition-colors duration-300">Gouvernement wallon</Link>
+                   <Link to="/parlement" className="text-white text-sm hover:text-gray-200 transition-colors duration-300">Parlement wallon</Link>
+                 </div>
+                 {/* Deuxième ligne */}
+                 <div className="flex gap-6">
+                   <Link to="/commission" className="text-white text-sm hover:text-gray-200 transition-colors duration-300">Commission emploi</Link>
+                   <Link to="/attaches" className="text-white text-sm hover:text-gray-200 transition-colors duration-300">Attachés parlementaires</Link>
+                   <Link to="/bureau" className="text-white text-sm hover:text-gray-200 transition-colors duration-300">Bureau de parti</Link>
+                   <Link to="/federation" className="text-white text-sm hover:text-gray-200 transition-colors duration-300">Fédération WB</Link>
+                 </div>
+               </div>
+             </nav>
             
             {/* Colonne droite : Bouton */}
             <div className="flex-shrink-0">

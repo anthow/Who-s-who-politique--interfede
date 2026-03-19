@@ -1,15 +1,22 @@
 [build]
-  command = "npm run build"
   publish = "public"
-  functions = "src/api"
+  command = "npm run build"
 
 [build.environment]
   NODE_VERSION = "18"
 
+# Configuration des fonctions Netlify
+[functions]
+  directory = "netlify/functions"
+
+# Redirections pour les fonctions
 [[redirects]]
   from = "/api/*"
   to = "/.netlify/functions/:splat"
   status = 200
 
-[functions]
-  directory = "src/api" 
+# Redirection pour la fonction add-comment
+[[redirects]]
+  from = "/api/add-comment"
+  to = "/.netlify/functions/add-comment"
+  status = 200 
